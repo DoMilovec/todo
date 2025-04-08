@@ -1,0 +1,15 @@
+* {
+    margin: 1em;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+body {
+    display: flex;
+}
+
+.projectsContainer {
+    display: flex;
+    flex-direction: column;
+}
