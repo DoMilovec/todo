@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="addProject">Add Project</button>
+    <div class="container">
+        <dialog id="dialog">
+            <form method="dialog">
+                <div class="project-name">
+                    <label for="projectName">Project name:</label>
+                    <input type="text" id="projectName" name="projectName" maxlength="50" required>
+                </div>
+                <div class="project-description">
+                    <label for="autprojectDescriptionhor">Project description:</label>
+                    <input type="text" id="projectDescription" name="projectDescription" maxlength="50">
+                </div>
+                <div class="project-date">
+                    <label for="projectDate">Due date:</label>
+                    <input type="date" id="projectDate" name="projectDate">
+                </div>
+
+                <button class="confirmProject">Confirm</button>
+                <button class="cancelProject">Cancel</button>
+            </form>
+        </dialog>    
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
