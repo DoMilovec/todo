@@ -37,6 +37,77 @@ function addTodo(title, description){
     todos.push(todo);
 }
 
+function renderProject(project) {
+    currentProject = project;
+    main.textContent = ''; // Clear the main area
+
+    // Title
+    const projectCardMain = document.createElement('div');
+    projectCardMain.classList.add('projectCardMain');
+    projectCardMain.textContent = project.title;
+    main.appendChild(projectCardMain);
+
+    // New Todo button
+    const newTodo = document.createElement('button');
+    newTodo.classList.add('newTodo');
+    newTodo.textContent = 'New Todo';
+    main.appendChild(newTodo);
+
+    // Show existing todos
+    renderTodos(project);
+
+    // "New Todo" button logic
+    newTodo.addEventListener('click', () => {
+        const inputTodoTitle = document.createElement('input');
+        inputTodoTitle.classList.add('inputTodoTitle');
+        main.appendChild(inputTodoTitle);
+
+        const inputTodoConfirm = document.createElement('button');
+        inputTodoConfirm.textContent = 'confirm';
+        main.appendChild(inputTodoConfirm);
+
+        inputTodoConfirm.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (!currentProject) return;
+
+            const newTodo = new Todo(inputTodoTitle.value, inputTodoTitle.value); // You can update this to use separate title/desc
+            currentProject.todos.push(newTodo);
+            renderTodos(currentProject);
+
+            inputTodoTitle.remove();
+            inputTodoConfirm.remove();
+        });
+    });
+}
+
+function renderTodos(project) {
+    const todosContainer = document.createElement('div');
+    todosContainer.textContent = '';
+    main.appendChild(todosContainer);
+    
+    const displayTodos = document.querySelectorAll('.todoCard');
+    displayTodos.forEach(todo => todo.remove());
+    
+    project.todos.forEach(todo => {
+        const todoCard = document.createElement('div');
+        todoCard.classList.add('todoCard');
+        todoCard.textContent = todo.title + todo.description;
+    
+        const delTodoBtn = document.createElement('button');
+        delTodoBtn.textContent = '✘';
+        delTodoBtn.classList.add('delTodoBtn');
+        todoCard.appendChild(delTodoBtn);
+    
+        delTodoBtn.addEventListener('click', () => {
+            const index = project.todos.findIndex(t => t.id === todo.id);
+            if (index !== -1) project.todos.splice(index, 1);
+            todoCard.remove();
+        });
+    
+        todosContainer.appendChild(todoCard);
+        });
+    }
+
 addProjectBtn.addEventListener('click', (event) => {
     dialog.showModal();
 });
@@ -44,7 +115,9 @@ addProjectBtn.addEventListener('click', (event) => {
 confirmProject.addEventListener('click', (event) => {
     event.preventDefault();
     addProject(selectProjectName.value, selectProjectDescription.value, selectProjectDate.value);
-    // confirmBtn.disabled = true; // Disable confirm button initially
+    
+    const newProject = projects[projects.length - 1];
+    renderProject(newProject);
 
     // clears projectsContainer each time new project is added and to re-render all
     const displayProjects = document.querySelectorAll('.projectCard');
@@ -73,88 +146,34 @@ confirmProject.addEventListener('click', (event) => {
         delBtn.classList.add('delBtn');
         projectCard.appendChild(delBtn);
         delBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // prevent triggering the project card click event
             projectCard.remove();
             delBtn.remove();
-    
-            // find and remove the project from projects[]
-            const indexToRemove = projects.findIndex(project => project.id === projectId);
+        
+            // Find index of the project to remove
+            const indexToRemove = projects.findIndex(p => p.id === projectId);
             if (indexToRemove !== -1) {
-                projects.splice(indexToRemove, 1); // remove the correct project
+                // check if this is currently selected project
+                const isCurrent = currentProject && currentProject.id === projectId;
+
+                projects.splice(indexToRemove, 1);
+                if (isCurrent) {
+                    if (projects.length > 0) {
+                        const nextProject = projects[indexToRemove] || projects[projects.length - 1];
+                        renderProject(nextProject);
+                    } else { // if no projects
+                        currentProject = null;
+                        main.textContent = 'No projects';
+                    }
+                }
             }
-            });
+        });
         
-            function renderTodos(project) {
-                const todosContainer = document.createElement('div');
-                todosContainer.textContent = '';
-                main.appendChild(todosContainer);
-            
-                const displayTodos = document.querySelectorAll('.todoCard');
-                displayTodos.forEach(todo => todo.remove());
-            
-                project.todos.forEach(todo => {
-                    const todoCard = document.createElement('div');
-                    todoCard.classList.add('todoCard');
-                    todoCard.textContent = todo.title + todo.description;
-            
-                    const delTodoBtn = document.createElement('button');
-                    delTodoBtn.textContent = '✘';
-                    delTodoBtn.classList.add('delTodoBtn');
-                    todoCard.appendChild(delTodoBtn);
-            
-                    delTodoBtn.addEventListener('click', () => {
-                        const index = project.todos.findIndex(t => t.id === todo.id);
-                        if (index !== -1) project.todos.splice(index, 1);
-                        todoCard.remove();
-                    });
-            
-                    todosContainer.appendChild(todoCard);
-                });
-            }
-        
-            projectCard.addEventListener('click', () => {
-            currentProject = project;
-            const projectCardMain = document.createElement('div');
-            projectCardMain.classList.add('projectCardMain');
-            main.textContent = '';
-            main.appendChild(projectCardMain);
-            projectCardMain.textContent = project.title;
-
-            const newTodo = document.createElement('button');
-            newTodo.classList.add('newTodo');
-            newTodo.textContent = 'New Todo';
-            main.appendChild(newTodo);
-
-            renderTodos(project);
-
-
-            newTodo.addEventListener('click', (event) => {
-                const inputTodoTitle = document.createElement('input');
-                inputTodoTitle.classList.add('inputTodoTitle');
-                main.appendChild(inputTodoTitle);
-
-                const inputTodoConfirm = document.createElement('button');
-                inputTodoConfirm.textContent = 'confirm';
-                main.appendChild(inputTodoConfirm);
-
-                const todosContainer = document.createElement('div');
-                todosContainer.textContent = '';
-                main.appendChild(todosContainer);
-                
-                inputTodoConfirm.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    if (!currentProject) return;
-                    const newTodo = new Todo(inputTodoTitle.value, inputTodoTitle.value);
-                    currentProject.todos.push(newTodo); // add to the right project
-                    renderTodos(currentProject); // render only this project’s todos
-                    inputTodoTitle.value = '';
-                    inputTodoTitle.style.display = 'none';
-                    inputTodoConfirm.style.display = 'none';
-                })
-                
-            })
-
-        })
+        projectCard.addEventListener('click', () => {
+            renderProject(project);
+        });
     }
+
     dialog.close();
     selectProjectName.value = '';
     selectProjectDescription.value = '';
