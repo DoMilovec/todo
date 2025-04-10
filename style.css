@@ -26,3 +26,44 @@ body {
     opacity: 0.5;
     text-decoration: line-through;
 }
+
+.projectCardTitle {
+    font-weight: bold;
+}
+
+.todoInputWrapper {
+    display: grid;
+}
+
+.todoCardTitle {
+    font-weight: bold;
+}
+
+.todoCardDesc {
+    color: grey;
+}
+
+.todoCardWrapper {
+    display: grid;
+    flex: 1;
+}
+
+.todoCard {
+    display: flex;
+    width: 50vw;
+    height: auto;
+}
+
+.todoCheckbox {
+    order: -1;
+}
+
+.projectCard {
+    position: relative;
+}
+
+.dateDiv {
+    color: red;
+    position: absolute;
+    bottom: -70%;
+}

@@ -44,36 +44,51 @@ function renderProject(project) {
     currentProject = project;
     main.textContent = ''; // Clear the main area
 
-    // Title
-    const projectCardMain = document.createElement('div');
-    projectCardMain.classList.add('projectCardMain');
-    projectCardMain.textContent = project.title;
-    main.appendChild(projectCardMain);
+    // Project title and description
+    const projectCardTitle = document.createElement('div');
+    projectCardTitle.classList.add('projectCardTitle');
+    projectCardTitle.textContent = project.title;
+    main.appendChild(projectCardTitle);
+    const projectCardDesc = document.createElement('div');
+    projectCardDesc.classList.add('projectCardDesc');
+    projectCardDesc.textContent = project.description;
+    main.appendChild(projectCardDesc);
 
     // New Todo button
-    const newTodo = document.createElement('button');
-    newTodo.classList.add('newTodo');
-    newTodo.textContent = 'New Todo';
-    main.appendChild(newTodo);
+    const newTodoBtn = document.createElement('button');
+    newTodoBtn.classList.add('newTodoBtn');
+    newTodoBtn.textContent = 'New Todo';
+    main.appendChild(newTodoBtn);
 
     // Show existing todos
     renderTodos(project);
 
     // "New Todo" button logic
-    newTodo.addEventListener('click', () => {
+    newTodoBtn.addEventListener('click', () => {
+        newTodoBtn.disabled = true;
+
+        const todoInputWrapper = document.createElement('div');
+        todoInputWrapper.classList.add('todoInputWrapper');
+        main.appendChild(todoInputWrapper);
         const inputTodoTitle = document.createElement('input');
         inputTodoTitle.classList.add('inputTodoTitle');
-        main.appendChild(inputTodoTitle);
+        todoInputWrapper.appendChild(inputTodoTitle);
+        const inputTodoDesc = document.createElement('input');
+        inputTodoDesc.classList.add('inputTodoDesc');
+        inputTodoDesc.placeholder = 'Description';
+        todoInputWrapper.appendChild(inputTodoDesc);
 
         const inputTodoConfirm = document.createElement('button');
+        inputTodoConfirm.classList.add('inputTodoConfirm');
         inputTodoConfirm.textContent = 'confirm';
-        main.appendChild(inputTodoConfirm);
+        todoInputWrapper.appendChild(inputTodoConfirm);
 
         inputTodoConfirm.addEventListener('click', (event) => {
+            newTodoBtn.disabled = false;
             event.preventDefault();
             if (!currentProject) return;
 
-            const newTodo = new Todo(inputTodoTitle.value, inputTodoTitle.value); // ADD DESCRIPTION INPUT AND OPTION
+            const newTodo = new Todo(inputTodoTitle.value, inputTodoDesc.value);
 
             const firstCheckedIndex = currentProject.todos.findIndex(t => t.isChecked); // find first checked todo
             if (firstCheckedIndex === -1) {
@@ -85,6 +100,7 @@ function renderProject(project) {
             renderTodos(currentProject);
 
             inputTodoTitle.remove();
+            inputTodoDesc.remove();
             inputTodoConfirm.remove();
         });
     });
@@ -100,8 +116,19 @@ function renderTodos(project) {
     
     project.todos.forEach(todo => {
         const todoCard = document.createElement('div');
+        const todoCardWrapper = document.createElement('div');
         todoCard.classList.add('todoCard');
-        todoCard.textContent = todo.title + todo.description;
+        todoCardWrapper.classList.add('todoCardWrapper');
+
+        const todoCardTitle = document.createElement('div');
+        todoCardTitle.classList.add('todoCardTitle');
+        const todoCardDesc = document.createElement('div');
+        todoCardDesc.classList.add('todoCardDesc');
+        todoCardWrapper.appendChild(todoCardTitle)
+        todoCardWrapper.appendChild(todoCardDesc)
+        todoCardTitle.textContent = todo.title;
+        todoCardDesc.textContent = todo.description;
+        todoCard.appendChild(todoCardWrapper);
 
         if (todo.isMarkedToday) {
             todoCard.classList.add('markedToday');
@@ -237,10 +264,27 @@ confirmProject.addEventListener('click', (event) => {
 
 
         projectsContainer.appendChild(projectCard);
-        function updateProjectCardText(projectCard, book) {
-            projectCard.textContent = project.title + ' ' + project.description + ' ' + project.dueDate;
+        function updateProjectCardText(projectCard) {
+            projectCard.textContent = project.title;
         }
-        updateProjectCardText(projectCard, projects[i]);       
+        updateProjectCardText(projectCard, projects[i]);
+
+        // Date showing under the project name
+        if (project.dueDate) {
+            const dateObj = new Date(project.dueDate);
+            if (!isNaN(dateObj)) {
+                const formattedDate = dateObj.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+        
+                const dateDiv = document.createElement('div');
+                dateDiv.classList.add('dateDiv');
+                dateDiv.textContent = formattedDate;
+                projectCard.appendChild(dateDiv);
+            }
+        }
         
         // saving the specific project ID
         const projectId = projects[i].id;
