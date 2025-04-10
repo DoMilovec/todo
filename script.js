@@ -280,7 +280,13 @@ confirmProject.addEventListener('click', (event) => {
     displayProjects.forEach(project => project.remove());
 
     // loop to add and display projects
-    for (let i=0 ; i<projects.length ; i++){
+    const reRenderProjects = () => { 
+        
+        // clears projectsContainer each time new project is added and to re-render all
+        const displayProjects = document.querySelectorAll('.projectCard');
+        displayProjects.forEach(project => project.remove());
+        
+        for (let i=0 ; i<projects.length ; i++){
         const project = projects[i];
         const projectCard =  document.createElement('button');
         projectCard.classList.add('projectCard');
@@ -342,11 +348,36 @@ confirmProject.addEventListener('click', (event) => {
             }
         });
         
+
+        // Move Up Button
+        const moveUpBtn = document.createElement('button');
+        moveUpBtn.textContent = '↑';
+        moveUpBtn.classList.add('moveUpBtn');
+        projectCard.appendChild(moveUpBtn);
+
+        moveUpBtn.disabled = i === 0;
+        moveUpBtn.onclick = () => {
+            [projects[i - 1], projects[i]] = [projects[i], projects[i - 1]];
+            reRenderProjects();
+        }
+        // ⬇️ Move Down Button
+        const moveDownBtn = document.createElement('button');
+        moveDownBtn.textContent = '↓';
+        moveDownBtn.classList.add('moveDownBtn');
+        projectCard.appendChild(moveDownBtn);
+
+        moveDownBtn.disabled = i === projects.length - 1;
+        moveDownBtn.onclick = () => {
+            [projects[i], projects[i + 1]] = [projects[i + 1], projects[i]];
+            reRenderProjects();
+        }
+
         projectCard.addEventListener('click', () => {
             renderProject(project);
         });
-    }
-
+    }}
+    
+    reRenderProjects();
     dialog.close();
     selectProjectName.value = '';
     selectProjectDescription.value = '';
