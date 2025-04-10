@@ -161,10 +161,14 @@ function renderTodos(project) {
                 todoCard.classList.add('isChecked');
                 todoCard.classList.remove('markedToday');
                 todoCard.classList.remove('markedPrio');
+                todayTodoBtn.style.display = 'none';
+                prioTodoBtn.style.display = 'none';
         
                 project.todos.push(todo);
                 } else {
                 todoCard.classList.remove('isChecked');
+                todayTodoBtn.style.display = '';
+                prioTodoBtn.style.display = '';
     
                 // check if it was prio before checking it first time
                 if (todo._wasPrio) {
@@ -225,6 +229,14 @@ function renderTodos(project) {
         
             renderTodos(project);
         });
+
+        if (todo.isChecked) {
+            todayTodoBtn.style.display = 'none';
+            prioTodoBtn.style.display = 'none';
+        } else {
+            todayTodoBtn.style.display = '';
+            prioTodoBtn.style.display = '';
+        }
 
         // Del button todo
         const delTodoBtn = document.createElement('button');
