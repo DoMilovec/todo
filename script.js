@@ -5,6 +5,7 @@ const selectProjectName = document.querySelector('#projectName');
 const selectProjectDescription = document.querySelector('#projectDescription');
 const selectProjectDate = document.querySelector('#projectDate');
 const confirmProject = document.querySelector('.confirmProject');
+const cancelProject = document.querySelector('.cancelProject');
 const main = document.querySelector('.main');
 
 const projects = [];
@@ -261,6 +262,10 @@ function renderTodos(project) {
 
 addProjectBtn.addEventListener('click', (event) => {
     dialog.showModal();
+});
+
+cancelProject.addEventListener('click', (event) => {
+    dialog.close();
 });
 
 confirmProject.addEventListener('click', (event) => {
