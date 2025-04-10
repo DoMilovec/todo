@@ -13,3 +13,16 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.markedToday {
+    background-color: lightyellow;
+}
+
+.markedPrio {
+    background-color: coral;
+}
+
+.isChecked {
+    opacity: 0.5;
+    text-decoration: line-through;
+}

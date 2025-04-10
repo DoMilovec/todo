@@ -30,6 +30,9 @@ class Todo {
         this.description = description;
         this.priority = priority;
         this.id = crypto.randomUUID();
+        this.isMarkedToday = false;
+        this.isMarkedPrio = false;
+        this.isChecked = false;
     }
 }
 function addTodo(title, description){
@@ -70,8 +73,15 @@ function renderProject(project) {
             event.preventDefault();
             if (!currentProject) return;
 
-            const newTodo = new Todo(inputTodoTitle.value, inputTodoTitle.value); // You can update this to use separate title/desc
-            currentProject.todos.push(newTodo);
+            const newTodo = new Todo(inputTodoTitle.value, inputTodoTitle.value); // ADD DESCRIPTION INPUT AND OPTION
+
+            const firstCheckedIndex = currentProject.todos.findIndex(t => t.isChecked); // find first checked todo
+            if (firstCheckedIndex === -1) {
+                currentProject.todos.push(newTodo);
+            } else {
+                currentProject.todos.splice(firstCheckedIndex, 0, newTodo); // insert before the first checked todo
+            }
+
             renderTodos(currentProject);
 
             inputTodoTitle.remove();
@@ -92,21 +102,117 @@ function renderTodos(project) {
         const todoCard = document.createElement('div');
         todoCard.classList.add('todoCard');
         todoCard.textContent = todo.title + todo.description;
+
+        if (todo.isMarkedToday) {
+            todoCard.classList.add('markedToday');
+        }
+
+        if (todo.isMarkedPrio) {
+            todoCard.classList.add('markedPrio');
+        }
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('todoCheckbox');
+        if (todo.isChecked){
+            checkbox.checked = true;
+            todoCard.classList.add('isChecked');
+            todoCard.classList.remove('markedToday');
+            todoCard.classList.remove('markedPrio');
+        }
+        checkbox.addEventListener('change', () => {
+            todo.isChecked = checkbox.checked;
+
+            const index = project.todos.findIndex(t => t.id === todo.id);
+            if (index !== -1) project.todos.splice(index, 1); // remove from current position
+        
+            if (checkbox.checked) {
+                todo._wasPrio = todo.isMarkedPrio; // temp for storing state prior to checking
+                todo.isMarkedToday = false;
+                todo.isMarkedPrio = false;
+        
+                todoCard.classList.add('isChecked');
+                todoCard.classList.remove('markedToday');
+                todoCard.classList.remove('markedPrio');
+        
+                project.todos.push(todo);
+                } else {
+                todoCard.classList.remove('isChecked');
     
+                // check if it was prio before checking it first time
+                if (todo._wasPrio) {
+                    todo.isMarkedPrio = true;
+                    project.todos.unshift(todo);
+                } else {
+                    // insert just under prio todos
+                    const prioEndIndex = project.todos.findIndex(t => !t.isMarkedPrio);
+                    if (prioEndIndex === -1) {
+                        project.todos.push(todo); // all are prio
+                    } else {
+                        project.todos.splice(prioEndIndex, 0, todo);
+                    }
+                }
+                delete todo._wasPrio;
+            }
+        
+            renderTodos(project); // re-render to shift or unshift after change
+        })
+        todoCard.appendChild(checkbox);
+
+        // Today button todo
+        const todayTodoBtn = document.createElement('button');
+        todayTodoBtn.textContent = 'today';
+        todayTodoBtn.classList.add('todayTodoBtn');
+        todoCard.appendChild(todayTodoBtn);
+        todayTodoBtn.addEventListener('click', () => {
+            todo.isMarkedToday = !todo.isMarkedToday; 
+            if (todo.isMarkedToday) {
+                todoCard.classList.add('markedToday');
+            } else {
+                todoCard.classList.remove('markedToday');
+            }
+        });
+
+        // Priority button todo
+        const prioTodoBtn = document.createElement('button');
+        prioTodoBtn.textContent = 'prio';
+        prioTodoBtn.classList.add('prioTodoBtn');
+        todoCard.appendChild(prioTodoBtn);
+        prioTodoBtn.addEventListener('click', () => {
+            todo.isMarkedPrio = !todo.isMarkedPrio;
+
+            // Remove from current position
+            const index = project.todos.findIndex(t => t.id === todo.id);
+            if (index !== -1) project.todos.splice(index, 1);
+        
+            if (todo.isMarkedPrio) {
+                project.todos.unshift(todo);
+            } else {
+                const prioEndIndex = project.todos.findIndex(t => !t.isMarkedPrio);
+                if (prioEndIndex === -1) {
+                    project.todos.push(todo);
+                } else {
+                    project.todos.splice(prioEndIndex, 0, todo); // Insert below last prio todo
+                }
+            }
+        
+            renderTodos(project);
+        });
+
+        // Del button todo
         const delTodoBtn = document.createElement('button');
         delTodoBtn.textContent = '✘';
         delTodoBtn.classList.add('delTodoBtn');
         todoCard.appendChild(delTodoBtn);
-    
         delTodoBtn.addEventListener('click', () => {
             const index = project.todos.findIndex(t => t.id === todo.id);
             if (index !== -1) project.todos.splice(index, 1);
             todoCard.remove();
         });
-    
+
         todosContainer.appendChild(todoCard);
         });
-    }
+}
 
 addProjectBtn.addEventListener('click', (event) => {
     dialog.showModal();
