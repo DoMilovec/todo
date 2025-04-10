@@ -8,6 +8,11 @@ const main = document.querySelector('.main');
 
 const projects = [];
 
+confirmProject.disabled = true;
+selectProjectName.addEventListener('input', () => {
+    confirmProject.disabled = selectProjectName.value.trim() === '';
+});
+
 class Project {
     constructor(title, description, dueDate, priority){
         this.title = title;
@@ -340,5 +345,5 @@ confirmProject.addEventListener('click', (event) => {
     selectProjectName.value = '';
     selectProjectDescription.value = '';
     selectProjectDate.value = ''; 
-    
+    confirmProject.disabled = true;
 });
