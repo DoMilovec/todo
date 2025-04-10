@@ -1,5 +1,6 @@
 const projectsContainer = document.querySelector('.projectsContainer');
 const addProjectBtn = document.querySelector('#addProject');
+const showMarkedTodayBtn = document.querySelector('#showMarkedTodayBtn');
 const selectProjectName = document.querySelector('#projectName');
 const selectProjectDescription = document.querySelector('#projectDescription');
 const selectProjectDate = document.querySelector('#projectDate');
@@ -346,4 +347,59 @@ confirmProject.addEventListener('click', (event) => {
     selectProjectDescription.value = '';
     selectProjectDate.value = ''; 
     confirmProject.disabled = true;
+});
+
+showMarkedTodayBtn.addEventListener('click', () => {
+    main.textContent = '';
+    const projectsMap = new Map();
+
+    // group todos by project title
+    projects.forEach(project => {
+        project.todos.forEach(todo => {
+            if (todo.isMarkedToday) {
+                if (!projectsMap.has(project.title)) {
+                    projectsMap.set(project.title, []); // create a new array if project isnt added yet
+                }
+                projectsMap.get(project.title).push(todo); // add the todo to the respective project
+            }
+        });
+    });
+
+    // if no todos marked for today, show a message
+    if (projectsMap.size === 0) {
+        main.textContent = 'No todos marked for today.';
+        return;
+    }
+
+    const todayTodosSection = document.createElement('div');
+    todayTodosSection.classList.add('todayTodosSection');
+    main.appendChild(todayTodosSection);
+
+    projectsMap.forEach((todos, projectName) => {
+        
+        // project name
+        const projectNameDiv = document.createElement('div');
+        projectNameDiv.classList.add('todayProjectName');
+        projectNameDiv.textContent = projectName;
+        todayTodosSection.appendChild(projectNameDiv);
+
+        // todo cards for each todo in a project
+        todos.forEach(todo => {
+            const todayTodoCard = document.createElement('div');
+            todayTodoCard.classList.add('todayTodoCard');
+
+                const todoCardTitle = document.createElement('div');
+                todoCardTitle.classList.add('todayTodoCardTitle');
+                todoCardTitle.textContent = todo.title;
+                todayTodoCard.appendChild(todoCardTitle);
+
+                const todoCardDesc = document.createElement('div');
+                todoCardDesc.classList.add('todayTodoCardDesc');
+                todoCardDesc.textContent = todo.description;
+                todayTodoCard.appendChild(todoCardDesc);
+
+            // append the todo card to the project section
+            todayTodosSection.appendChild(todayTodoCard);
+        });
+    });
 });

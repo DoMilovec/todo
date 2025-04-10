@@ -67,3 +67,7 @@ body {
     position: absolute;
     bottom: -70%;
 }
+
+.sidebar {
+    display: grid;
+}
