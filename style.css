@@ -63,6 +63,9 @@ body {
 
 .todoCardTitle {
     font-weight: bold;
+    cursor: text;
+    min-height: 1em;
+    padding: 4px 8px;
 }
 
 .todoCardDesc {
@@ -84,9 +87,40 @@ body {
     order: -1;
 }
 
+.myProjects {
+    justify-self: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #25282b;
+}
+
+/* PROJECT CARD */
 .projectCard {
     position: relative;
+    width: 100%;
+    height: 5vh;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
 }
+
+.projectCard:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(1.03);
+  }
+
+.projectCard:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+  }
 
 .dateDiv {
     color: red;

@@ -137,6 +137,46 @@ function renderTodos(project) {
         todoCardDesc.textContent = todo.description;
         todoCard.appendChild(todoCardWrapper);
 
+        // make title and decription editable on click
+        // title
+        todoCardTitle.addEventListener('click', () => {
+            setTimeout(() => {
+                todoCardTitle.setAttribute('contenteditable', 'true');
+                todoCardTitle.focus();
+            }, 0);
+          });
+        todoCardTitle.addEventListener('blur', () => {
+            todo.title = todoCardTitle.textContent.trim(); 
+            todoCardTitle.removeAttribute('contenteditable');
+          });
+        todoCardTitle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            todo.title = todoCardTitle.textContent.trim();
+            todoCardTitle.removeAttribute('contenteditable');
+            todoCardTitle.blur();
+        }
+        });
+        // desc
+        todoCardDesc.addEventListener('click', () => {
+            setTimeout(() => {
+                todoCardDesc.setAttribute('contenteditable', 'true');
+                todoCardDesc.focus();
+            }, 0);
+          });
+          todoCardDesc.addEventListener('blur', () => {
+            todo.description = todoCardDesc.textContent.trim(); 
+            todoCardDesc.removeAttribute('contenteditable');
+          });
+          todoCardDesc.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            todo.description = todoCardDesc.textContent.trim();
+            todoCardDesc.removeAttribute('contenteditable');
+            todoCardDesc.blur();
+        }
+        });
+
         if (todo.isMarkedToday) {
             todoCard.classList.add('markedToday');
         }
