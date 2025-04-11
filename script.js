@@ -424,16 +424,75 @@ showMarkedTodayBtn.addEventListener('click', () => {
             const todayTodoCard = document.createElement('div');
             todayTodoCard.classList.add('todayTodoCard');
 
-                const todoCardTitle = document.createElement('div');
-                todoCardTitle.classList.add('todayTodoCardTitle');
-                todoCardTitle.textContent = todo.title;
-                todayTodoCard.appendChild(todoCardTitle);
+            const projectNameDiv = document.createElement('div');
+            projectNameDiv.classList.add('todayProjectName');
+            
+            // project title
+            const titleSpan = document.createElement('span');
+            titleSpan.textContent = projectName;
+            projectNameDiv.appendChild(titleSpan);
+            
+            // open that project button
+            const openProjectBtn = document.createElement('button');
+            openProjectBtn.textContent = '🔍 Open';
+            openProjectBtn.classList.add('openProjectBtn');
+            openProjectBtn.addEventListener('click', () => {
+                const projectToOpen = projects.find(p => p.title === projectName);
+                if (projectToOpen) {
+                    renderProject(projectToOpen);
+                }
+            });
+            projectNameDiv.appendChild(openProjectBtn);
+            
+            todayTodosSection.appendChild(projectNameDiv);
 
                 const todoCardDesc = document.createElement('div');
                 todoCardDesc.classList.add('todayTodoCardDesc');
                 todoCardDesc.textContent = todo.description;
                 todayTodoCard.appendChild(todoCardDesc);
 
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.classList.add('todoCheckbox');
+                checkbox.checked = todo.isChecked;
+                todayTodoCard.appendChild(checkbox);
+
+                checkbox.addEventListener('change', () => {
+                    todo.isChecked = checkbox.checked;
+
+                    // remove from its current place in the project
+                    const project = projects.find(p => p.todos.some(t => t.id === todo.id));
+                    const index = project.todos.findIndex(t => t.id === todo.id);
+                    if (index !== -1) {
+                        project.todos.splice(index, 1);
+                    }
+
+                    if (todo.isChecked) {
+                        todo._wasPrio = todo.isMarkedPrio;
+                        todo.isMarkedPrio = false;
+                        todo.isMarkedToday = false;
+                        project.todos.push(todo);
+                    } else {
+                        if (todo._wasPrio) {
+                            todo.isMarkedPrio = true;
+                            project.todos.unshift(todo);
+                        } else {
+                            const prioEndIndex = project.todos.findIndex(t => !t.isMarkedPrio);
+                            if (prioEndIndex === -1) {
+                                project.todos.push(todo);
+                            } else {
+                                project.todos.splice(prioEndIndex, 0, todo);
+                            }
+                        }
+                        delete todo._wasPrio;
+                    }
+
+                    if (currentProject && currentProject.id === project.id) {
+                        renderProject(currentProject);
+                    }
+
+                    showMarkedTodayBtn.click(); // refresh today view
+                });
             // append the todo card to the project section
             todayTodosSection.appendChild(todayTodoCard);
         });
