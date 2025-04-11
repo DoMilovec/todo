@@ -7,9 +7,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="header">TODO LIST BY DOC</div>
     <div class="sidebar">
-        <button id="addProject">Add Project</button>
-        <button id="showMarkedTodayBtn">Today</button>
+        <button title="Add" class="cssbuttons-io-button" id="addProject">
+            <svg height="25" width="25" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path></svg>
+            <span>Add Project</span>
+          </button>
+        <button id="showMarkedTodayBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none" class="svg-icon"><g stroke-width="2" stroke-linecap="round" stroke="#fff"><rect y="5" x="4" width="16" rx="2" height="16"></rect><path d="m8 3v4"></path><path d="m16 3v4"></path><path d="m4 11h16"></path></g></svg>
+            <span class="lable">Today</span>
+          </button>
         <div class="projectsContainer">
             <dialog id="dialog">
                 <form method="dialog">

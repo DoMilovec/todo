@@ -1,12 +1,38 @@
 * {
-    margin: 1em;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     /* border: 1px solid black; */
 }
 
 body {
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+        'header header'
+        'sidebar main';
+    grid-template-columns: 1fr 4fr;
+}
+
+.header {
+    background-color: #3d3d3d;
+    grid-area: header;
+    height: 10vh;
+    color: white;
+    font-size: 4em;
+}
+
+.sidebar {
+    display: grid;
+    margin: 1em;
+    grid-area: sidebar;
+    justify-content: center;
+    align-content: center;
+    gap: 2em;
+}
+
+.main {
+    margin: 1em;
+    grid-area: main;
 }
 
 .projectsContainer {
@@ -68,10 +94,6 @@ body {
     bottom: -70%;
 }
 
-.sidebar {
-    display: grid;
-}
-
 .openProjectBtn {
     margin-left: 10px;
     padding: 2px 6px;
@@ -85,4 +107,197 @@ body {
 
 .openProjectBtn:hover {
     background-color: #c8c8c8;
+}
+
+.cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .2em;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    padding: .5em 1.5em;
+    color: white;
+    background: linear-gradient(0deg, rgb(0, 150, 60), rgb(100, 250, 150));
+    border: none;
+    outline: none;
+    border-bottom: 3px solid rgb(0, 130, 40);
+    box-shadow: 0 .5em .5em -.4em rgb(0, 0, 0, .5);
+    letter-spacing: 0.08em;
+    border-radius: 20em;
+    cursor: pointer;
+    transition: .5s;
+  }
+  
+  .cssbuttons-io-button:hover {
+    filter: brightness(1.2);
+    color: rgb(0, 0, 0, .5);
+  }
+  
+  .cssbuttons-io-button:active {
+    transition: 0s;
+    transform: scale(1.05);
+  }
+
+  #addProject {
+    width: 100%;
+  }
+
+    #showMarkedTodayBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 12px;
+    gap: 8px;
+    height: 40px;
+    width: 201px;
+    border: none;
+    background: #FF342B;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .lable {
+    line-height: 22px;
+    font-size: 17px;
+    color: #fff;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+  
+  #showMarkedTodayBtn:hover {
+    background: #e52e26;
+  }
+  
+  #showMarkedTodayBtn:hover .svg-icon {
+    animation: slope 1s linear infinite;
+  }
+  
+  @keyframes slope {
+    0% {
+    }
+  
+    50% {
+      transform: rotate(10deg);
+    }
+  
+    100% {
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  dialog#dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 400px;
+    max-width: 90vw;
+    background: #ffffff;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+    /* 👇 New animation using keyframes */
+    animation: fadeInScale 0.3s ease-out;
+  }
+  
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+  }
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+form label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #333;
+}
+
+form input[type="text"],
+form input[type="date"],
+form textarea {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border 0.2s ease;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: #25282b;
+    background-color: #fff;
+}
+
+form textarea {
+    resize: none;
+}
+
+button.confirmProject,
+button.cancelProject {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button.confirmProject {
+    background-color: rgb(0, 173, 9);
+    color: white;
+}
+
+button.confirmProject:hover {
+    background-color: rgb(0, 214, 64);
+}
+
+button.cancelProject {
+    background-color: #e0e0e0;
+    color: #333;
+    margin-left: 0.5rem;
+}
+
+button.cancelProject:hover {
+    background-color: #d0d0d0;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+button.confirmProject:disabled {
+    background-color: #8cff8c;
+    color: #f2f2f2;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
