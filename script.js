@@ -389,6 +389,47 @@ confirmProject.addEventListener('click', (event) => {
         });
         
 
+        const editProjectBtn = document.createElement('button');
+        editProjectBtn.textContent = 'Edit';
+        editProjectBtn.classList.add('editProjectBtn');
+        projectCard.appendChild(editProjectBtn);
+
+        editProjectBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+        
+            const modal = document.getElementById('editProjectModal');
+            const titleInput = document.getElementById('editProjectTitle');
+            const descriptionInput = document.getElementById('editProjectDescription');
+            const saveProjectBtn = document.getElementById('saveProjectBtn');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+        
+            // set current project values
+            titleInput.value = project.title;
+            descriptionInput.value = project.description;
+        
+            const newSaveBtn = saveProjectBtn.cloneNode(true);
+            saveProjectBtn.parentNode.replaceChild(newSaveBtn, saveProjectBtn);
+        
+            // save edit button
+            newSaveBtn.addEventListener('click', () => {
+                project.title = titleInput.value.trim();
+                project.description = descriptionInput.value.trim();
+        
+                
+                reRenderProjects();
+                modal.close();
+            });
+
+            const newCancelBtn = cancelEditBtn.cloneNode(true);
+            cancelEditBtn.parentNode.replaceChild(newCancelBtn, cancelEditBtn);
+            newCancelBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        
+            modal.showModal();
+        });
+        
+        
         // Move Up Button
         const moveUpBtn = document.createElement('button');
         moveUpBtn.textContent = '↑';

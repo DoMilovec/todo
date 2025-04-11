@@ -53,6 +53,16 @@ body {
     text-decoration: line-through;
 }
 
+#editProjectModal {
+    width: 400px;
+    padding: 20px;
+}
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .projectCardTitle {
     font-weight: bold;
 }
