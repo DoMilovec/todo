@@ -402,7 +402,7 @@ confirmProject.addEventListener('click', (event) => {
                         renderProject(nextProject);
                     } else { // if no projects
                         currentProject = null;
-                        main.textContent = 'No projects';
+                        main.textContent = 'You have no active projects. Start by adding a new one.';
                     }
                 }
             }
@@ -609,3 +609,13 @@ showMarkedTodayBtn.addEventListener('click', () => {
         });
     });
 });
+
+const todayDate = new Date();
+
+const formattedTodayDate = todayDate.toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric'
+});
+document.getElementById('todayDate').textContent = formattedTodayDate;

@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="header">TODO LIST BY DOC</div>
+    <div class="header">
+        <div class="logo">To Do Doc</div>
+        <div id="todayDate"></div>
+    </div>
     <div class="sidebar">
         <button title="Add" class="cssbuttons-io-button" id="addProject">
             <svg height="25" width="25" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path></svg>
@@ -46,13 +52,13 @@
                 <label for="editProjectDescription">Description</label>
                 <textarea id="editProjectDescription" placeholder="Enter description"></textarea>
                 <label for="editProjectDate">Due date:</label>
-                <input id="editProjectDate" type="date">
+                <input id="editProjectDate" name="editProjectDate" type="date">
                 <button id="saveProjectBtn">Save</button>
                 <button id="cancelEditBtn">Cancel</button>
             </div>
         </dialog>
     </div>
-    <div class="main"></div>
+    <div class="main">You have no active projects. Start by adding a new one.</div>
 <script src="script.js"></script>
 </body>
 </html>

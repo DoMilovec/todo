@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* border: 1px solid black; */
+    font-family: "Oxygen", sans-serif;
 }
 
 body {
@@ -19,15 +19,30 @@ body {
     height: 10vh;
     color: white;
     font-size: 4em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    padding-left: 0.5em;
+}
+
+#todayDate {
+    padding-right: 1em;
+    font-size: 0.5em;
 }
 
 .sidebar {
     display: grid;
-    margin: 1em;
+    padding-top: 4em;
     grid-area: sidebar;
     justify-content: center;
     align-content: center;
     gap: 2em;
+    background-color: #c8c8c88a;
+    height: 90vh;
+    align-content: start;
 }
 
 .main {
@@ -38,6 +53,7 @@ body {
 .projectsContainer {
     display: flex;
     flex-direction: column;
+    gap: 4em;
 }
 
 .markedToday {
@@ -50,7 +66,6 @@ body {
 
 .isChecked {
     opacity: 0.5;
-    text-decoration: line-through;
 }
 
 #editProjectModal {
@@ -99,7 +114,7 @@ body {
 
 .myProjects {
     justify-self: center;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Oxygen", sans-serif;
     font-weight: bold;
     font-size: 1.2em;
     color: #25282b;
@@ -135,7 +150,16 @@ body {
 .dateDiv {
     color: red;
     position: absolute;
-    bottom: -70%;
+    bottom: -60%;
+    left: 25%;
+    justify-self: center;
+    border-left: grey 1px solid;
+    border-right: grey 1px solid;
+    border-bottom: grey 1px solid;
+    border-radius: 5px;
+    padding: 0.2em;
+    margin-top: 0.2em;
+    background-color: rgba(255, 255, 255, 0.938);
 }
 
 .openProjectBtn {
@@ -197,7 +221,7 @@ body {
     height: 40px;
     width: 201px;
     border: none;
-    background: #FF342B;
+    background: #ffac12;
     border-radius: 20px;
     cursor: pointer;
   }
@@ -206,12 +230,13 @@ body {
     line-height: 22px;
     font-size: 17px;
     color: #fff;
-    font-family: sans-serif;
+    font-family: "Oxygen", sans-serif;
+    font-weight: bold;
     letter-spacing: 1px;
   }
   
   #showMarkedTodayBtn:hover {
-    background: #e52e26;
+    background: #ffa602;
   }
   
   #showMarkedTodayBtn:hover .svg-icon {
@@ -253,7 +278,7 @@ body {
     max-width: 90vw;
     background: #ffffff;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Oxygen", sans-serif;
   
     /* 👇 New animation using keyframes */
     animation: fadeInScale 0.3s ease-out;
