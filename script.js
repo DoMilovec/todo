@@ -60,6 +60,26 @@ function renderProject(project) {
     projectCardDesc.classList.add('projectCardDesc');
     projectCardDesc.textContent = project.description;
     main.appendChild(projectCardDesc);
+    const projectDueDate = document.createElement('div');
+    projectDueDate.classList.add('projectCardDesc');
+
+    if (project.dueDate) {
+        const dateObjMain = new Date(project.dueDate);
+        if (!isNaN(dateObjMain)) {
+            const formattedDateMain = dateObjMain.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+    
+            const dateDivMain = document.createElement('div');
+            dateDivMain.classList.add('dateDivMain');
+            dateDivMain.textContent = 'Due date: ' + formattedDateMain;
+            main.appendChild(dateDivMain);
+        }
+    }
+
+
 
     // New Todo button
     const newTodoBtn = document.createElement('button');
@@ -402,7 +422,16 @@ confirmProject.addEventListener('click', (event) => {
             const descriptionInput = document.getElementById('editProjectDescription');
             const saveProjectBtn = document.getElementById('saveProjectBtn');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
-        
+            const dateInput = document.getElementById('editProjectDate');
+
+            // format date
+            if (project.dueDate) {
+                const formattedDate = new Date(project.dueDate).toISOString().split('T')[0];
+                dateInput.value = formattedDate;
+              } else {
+                dateInput.value = '';
+              }
+
             // set current project values
             titleInput.value = project.title;
             descriptionInput.value = project.description;
@@ -414,7 +443,8 @@ confirmProject.addEventListener('click', (event) => {
             newSaveBtn.addEventListener('click', () => {
                 project.title = titleInput.value.trim();
                 project.description = descriptionInput.value.trim();
-        
+                const selectedDate = dateInput.value;
+                project.dueDate = selectedDate ? new Date(selectedDate).toISOString() : null;
                 
                 reRenderProjects();
                 modal.close();
