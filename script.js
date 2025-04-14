@@ -441,8 +441,8 @@ confirmProject.addEventListener('click', (event) => {
         editProjectBtn.style.backgroundRepeat = 'no-repeat';
         editProjectBtn.style.backgroundPosition = 'center';
         editProjectBtn.style.backgroundSize = 'contain';
-        editProjectBtn.style.width = '40px';
-        editProjectBtn.style.height = '40px';
+        editProjectBtn.style.width = '30px';
+        editProjectBtn.style.height = '30px';
         editProjectBtn.style.border = 'none';
         editProjectBtn.style.backgroundColor = 'transparent';
         editProjectBtn.classList.add('editProjectBtn');
@@ -492,7 +492,50 @@ confirmProject.addEventListener('click', (event) => {
         
             modal.showModal();
         });
+       
+        
+        // Move Up Button
+        const moveUpBtn = document.createElement('button');
+        moveUpBtn.textContent = '';
+        moveUpBtn.style.backgroundImage = 'url("img/arrowup.png")';
+        moveUpBtn.style.backgroundRepeat = 'no-repeat';
+        moveUpBtn.style.backgroundPosition = 'center';
+        moveUpBtn.style.backgroundSize = 'contain';
+        moveUpBtn.style.width = '30px';
+        moveUpBtn.style.height = '30px';
+        moveUpBtn.style.border = 'none';
+        moveUpBtn.style.backgroundColor = 'transparent';
+        moveUpBtn.classList.add('moveUpBtn');
+        projectButtons.appendChild(moveUpBtn);
 
+        moveUpBtn.disabled = i === 0;
+        moveUpBtn.onclick = () => {
+            [projects[i - 1], projects[i]] = [projects[i], projects[i - 1]];
+            reRenderProjects();
+        }
+        // ⬇️ Move Down Button
+        const moveDownBtn = document.createElement('button');
+        moveDownBtn.textContent = '';
+        moveDownBtn.style.backgroundImage = 'url("img/arrowdown.png")';
+        moveDownBtn.style.backgroundRepeat = 'no-repeat';
+        moveDownBtn.style.backgroundPosition = 'center';
+        moveDownBtn.style.backgroundSize = 'contain';
+        moveDownBtn.style.width = '30px';
+        moveDownBtn.style.height = '30px';
+        moveDownBtn.style.border = 'none';
+        moveDownBtn.style.backgroundColor = 'transparent';
+        moveDownBtn.classList.add('moveDownBtn');
+        projectButtons.appendChild(moveDownBtn);
+
+        moveDownBtn.disabled = i === projects.length - 1;
+        moveDownBtn.onclick = () => {
+            [projects[i], projects[i + 1]] = [projects[i + 1], projects[i]];
+            reRenderProjects();
+        }
+        projectCard.appendChild(projectButtons);
+        projectCard.addEventListener('click', () => {
+            renderProject(project);
+        });
 
         // delete button and logic to remove specific project
         const delBtn = document.createElement('button');
@@ -502,8 +545,8 @@ confirmProject.addEventListener('click', (event) => {
         delBtn.style.backgroundRepeat = 'no-repeat';
         delBtn.style.backgroundPosition = 'center';
         delBtn.style.backgroundSize = 'contain';
-        delBtn.style.width = '40px';
-        delBtn.style.height = '40px';
+        delBtn.style.width = '30px';
+        delBtn.style.height = '30px';
         delBtn.style.border = 'none';
         delBtn.style.backgroundColor = 'transparent';
         delBtn.classList.add('delBtn');
@@ -530,50 +573,6 @@ confirmProject.addEventListener('click', (event) => {
                     }
                 }
             }
-        });
-        
-        
-        // Move Up Button
-        const moveUpBtn = document.createElement('button');
-        moveUpBtn.textContent = '';
-        moveUpBtn.style.backgroundImage = 'url("img/arrowup.png")';
-        moveUpBtn.style.backgroundRepeat = 'no-repeat';
-        moveUpBtn.style.backgroundPosition = 'center';
-        moveUpBtn.style.backgroundSize = 'contain';
-        moveUpBtn.style.width = '40px';
-        moveUpBtn.style.height = '40px';
-        moveUpBtn.style.border = 'none';
-        moveUpBtn.style.backgroundColor = 'transparent';
-        moveUpBtn.classList.add('moveUpBtn');
-        projectButtons.appendChild(moveUpBtn);
-
-        moveUpBtn.disabled = i === 0;
-        moveUpBtn.onclick = () => {
-            [projects[i - 1], projects[i]] = [projects[i], projects[i - 1]];
-            reRenderProjects();
-        }
-        // ⬇️ Move Down Button
-        const moveDownBtn = document.createElement('button');
-        moveDownBtn.textContent = '';
-        moveDownBtn.style.backgroundImage = 'url("img/arrowdown.png")';
-        moveDownBtn.style.backgroundRepeat = 'no-repeat';
-        moveDownBtn.style.backgroundPosition = 'center';
-        moveDownBtn.style.backgroundSize = 'contain';
-        moveDownBtn.style.width = '40px';
-        moveDownBtn.style.height = '40px';
-        moveDownBtn.style.border = 'none';
-        moveDownBtn.style.backgroundColor = 'transparent';
-        moveDownBtn.classList.add('moveDownBtn');
-        projectButtons.appendChild(moveDownBtn);
-
-        moveDownBtn.disabled = i === projects.length - 1;
-        moveDownBtn.onclick = () => {
-            [projects[i], projects[i + 1]] = [projects[i + 1], projects[i]];
-            reRenderProjects();
-        }
-        projectCard.appendChild(projectButtons);
-        projectCard.addEventListener('click', () => {
-            renderProject(project);
         });
     }}
     

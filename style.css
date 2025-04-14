@@ -37,8 +37,7 @@ body {
     display: grid;
     padding-top: 4em;
     grid-area: sidebar;
-    justify-content: center;
-    align-content: center;
+    place-items: center;
     gap: 2em;
     background-color: #c8c8c88a;
     height: 90vh;
@@ -123,31 +122,40 @@ body {
 /* PROJECT CARD */
 .projectCard {
     position: relative;
-    width: 100%;
+    width: 15em;
     height: auto;
     color: #090909;
     padding: 0.7em 1.7em;
-    font-size: 18px;
+    font-size: 1.5em;
     border-radius: 0.5em;
     background: #e8e8e8;
     cursor: pointer;
     border: 1px solid #e8e8e8;
     transition: all 0.3s;
     box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-    max-width: 100%;
     display: grid;
+    gap: 1vh;
 }
 
 .projectButtons {
     display: flex;
     gap: 1em;
+    justify-content: center;
+    align-items: center;
 }
 
 .editProjectBtn:hover,
 .delBtn:hover,
 .moveUpBtn:hover,
 .moveDownBtn:hover {
-    transform: scale(1.05);
+    transform: scale(1.12);
+}
+
+.editProjectBtn,
+.delBtn,
+.moveUpBtn,
+.moveDownBtn {
+    cursor: pointer;
 }
 
 .projectCard:hover {
@@ -223,7 +231,7 @@ body {
   }
 
   #addProject {
-    width: 100%;
+    width: 15em;
   }
 
     #showMarkedTodayBtn {
@@ -233,7 +241,7 @@ body {
     padding: 9px 12px;
     gap: 8px;
     height: 40px;
-    width: 201px;
+    width: 18em;
     border: none;
     background: #ffac12;
     border-radius: 20px;
