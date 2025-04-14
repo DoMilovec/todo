@@ -370,3 +370,35 @@ button.confirmProject:disabled {
     cursor: not-allowed;
     opacity: 0.7;
 }
+
+.circular-progress {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-90deg);
+  }
+  
+  .circle-bg,
+  .circle {
+    fill: none;
+    stroke-width: 3.8;
+  }
+  
+  .circle-bg {
+    stroke: #eee;
+  }
+  
+  .circle {
+    stroke: #4caf50;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 0.8s ease-out;
+  }
+  
+  .percentage-label {
+    font-size: 4px;
+    font-weight: bold;
+    fill: #333;
+    transform: rotate(90deg);
+    transform-origin: center;
+  }  

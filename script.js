@@ -40,12 +40,28 @@ class Todo {
         this.isMarkedToday = false;
         this.isMarkedPrio = false;
         this.isChecked = false;
+        this.done = false;
     }
 }
 function addTodo(title, description){
     let todo = new Todo(title, description);
     todos.push(todo);
 }
+
+function updateProgress(project) {
+    const doneCount = project.todos.filter(todo => todo.isChecked).length;
+    const totalCount = project.todos.length;
+    const percentage = totalCount === 0 ? 0 : Math.round((doneCount / totalCount) * 100);
+
+    const circle = document.querySelector('.circle');
+    const text = document.querySelector('.percentage-label');
+
+    const offset = 100 - percentage; // reverse fill
+    circle.style.strokeDashoffset = offset;
+
+    text.textContent = `Progress: ${percentage}%`;
+}
+
 
 function renderProject(project) {
     currentProject = project;
@@ -79,7 +95,41 @@ function renderProject(project) {
         }
     }
 
+    const progressWrapper = document.createElement('div');
+    progressWrapper.classList.add('progressWrapper');
+    
+    const progressCircle = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    progressCircle.setAttribute("viewBox", "0 0 36 36");
+    progressCircle.classList.add('circular-progress');
+    
+    const circleBg = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    circleBg.setAttribute("class", "circle-bg");
+    circleBg.setAttribute("d", "M18 2.0845 a 15.9155 15.9155 0 1 1 0 31.831 a 15.9155 15.9155 0 1 1 0 -31.831");
+    
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    circle.setAttribute("class", "circle");
+    circle.setAttribute("d", "M18 2.0845 a 15.9155 15.9155 0 1 1 0 31.831 a 15.9155 15.9155 0 1 1 0 -31.831");
+    
+    const progressText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    progressText.setAttribute("x", "18");
+    progressText.setAttribute("y", "20.5");
+    progressText.setAttribute("text-anchor", "middle");
+    progressText.setAttribute("alignment-baseline", "middle"); // center it
+    progressText.setAttribute("class", "percentage-label");
+    progressText.textContent = "Progress: 0%";
+    
+    progressCircle.appendChild(circleBg);
+    progressCircle.appendChild(circle);
+    progressCircle.appendChild(progressText);
+    progressWrapper.appendChild(progressCircle);
+    main.appendChild(progressWrapper);
+    
 
+    // Save reference for updates
+    project._progressElements = {
+        circle,
+        text: progressText
+    };
 
     // New Todo button
     const newTodoBtn = document.createElement('button');
@@ -216,6 +266,7 @@ function renderTodos(project) {
         }
         checkbox.addEventListener('change', () => {
             todo.isChecked = checkbox.checked;
+            todo.done = true;
 
             const index = project.todos.findIndex(t => t.id === todo.id);
             if (index !== -1) project.todos.splice(index, 1); // remove from current position
@@ -234,6 +285,7 @@ function renderTodos(project) {
                 project.todos.push(todo);
                 } else {
                 todoCard.classList.remove('isChecked');
+                todo.done = false;
                 todayTodoBtn.style.display = '';
                 prioTodoBtn.style.display = '';
     
@@ -318,6 +370,7 @@ function renderTodos(project) {
 
         todosContainer.appendChild(todoCard);
         });
+        updateProgress(project);
 }
 
 addProjectBtn.addEventListener('click', (event) => {
