@@ -403,6 +403,9 @@ confirmProject.addEventListener('click', (event) => {
         const project = projects[i];
         const projectCard =  document.createElement('button');
         projectCard.classList.add('projectCard');
+        const projectButtons = document.createElement('div');
+        projectButtons.classList.add('projectButtons');
+        
 
 
         projectsContainer.appendChild(projectCard);
@@ -432,40 +435,18 @@ confirmProject.addEventListener('click', (event) => {
         const projectId = projects[i].id;
 
 
-        // delete button and logic to remove specific project
-        const delBtn = document.createElement('button');
-        delBtn.textContent = '✘';
-        delBtn.classList.add('delBtn');
-        projectCard.appendChild(delBtn);
-        delBtn.addEventListener('click', (event) => {
-            event.stopPropagation(); // prevent triggering the project card click event
-            projectCard.remove();
-            delBtn.remove();
-        
-            // Find index of the project to remove
-            const indexToRemove = projects.findIndex(p => p.id === projectId);
-            if (indexToRemove !== -1) {
-                // check if this is currently selected project
-                const isCurrent = currentProject && currentProject.id === projectId;
-
-                projects.splice(indexToRemove, 1);
-                if (isCurrent) {
-                    if (projects.length > 0) {
-                        const nextProject = projects[indexToRemove] || projects[projects.length - 1];
-                        renderProject(nextProject);
-                    } else { // if no projects
-                        currentProject = null;
-                        main.textContent = 'You have no active projects. Start by adding a new one.';
-                    }
-                }
-            }
-        });
-        
-
         const editProjectBtn = document.createElement('button');
-        editProjectBtn.textContent = 'Edit';
+        editProjectBtn.textContent = '';
+        editProjectBtn.style.backgroundImage = 'url("img/edit.png")';
+        editProjectBtn.style.backgroundRepeat = 'no-repeat';
+        editProjectBtn.style.backgroundPosition = 'center';
+        editProjectBtn.style.backgroundSize = 'contain';
+        editProjectBtn.style.width = '40px';
+        editProjectBtn.style.height = '40px';
+        editProjectBtn.style.border = 'none';
+        editProjectBtn.style.backgroundColor = 'transparent';
         editProjectBtn.classList.add('editProjectBtn');
-        projectCard.appendChild(editProjectBtn);
+        projectButtons.appendChild(editProjectBtn);
 
         editProjectBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -511,13 +492,60 @@ confirmProject.addEventListener('click', (event) => {
         
             modal.showModal();
         });
+
+
+        // delete button and logic to remove specific project
+        const delBtn = document.createElement('button');
+        delBtn.textContent = '';
+        delBtn.textContent = '';
+        delBtn.style.backgroundImage = 'url("img/delete.png")';
+        delBtn.style.backgroundRepeat = 'no-repeat';
+        delBtn.style.backgroundPosition = 'center';
+        delBtn.style.backgroundSize = 'contain';
+        delBtn.style.width = '40px';
+        delBtn.style.height = '40px';
+        delBtn.style.border = 'none';
+        delBtn.style.backgroundColor = 'transparent';
+        delBtn.classList.add('delBtn');
+        projectButtons.appendChild(delBtn);
+        delBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // prevent triggering the project card click event
+            projectCard.remove();
+            delBtn.remove();
+        
+            // Find index of the project to remove
+            const indexToRemove = projects.findIndex(p => p.id === projectId);
+            if (indexToRemove !== -1) {
+                // check if this is currently selected project
+                const isCurrent = currentProject && currentProject.id === projectId;
+
+                projects.splice(indexToRemove, 1);
+                if (isCurrent) {
+                    if (projects.length > 0) {
+                        const nextProject = projects[indexToRemove] || projects[projects.length - 1];
+                        renderProject(nextProject);
+                    } else { // if no projects
+                        currentProject = null;
+                        main.textContent = 'You have no active projects. Start by adding a new one.';
+                    }
+                }
+            }
+        });
         
         
         // Move Up Button
         const moveUpBtn = document.createElement('button');
-        moveUpBtn.textContent = '↑';
+        moveUpBtn.textContent = '';
+        moveUpBtn.style.backgroundImage = 'url("img/arrowup.png")';
+        moveUpBtn.style.backgroundRepeat = 'no-repeat';
+        moveUpBtn.style.backgroundPosition = 'center';
+        moveUpBtn.style.backgroundSize = 'contain';
+        moveUpBtn.style.width = '40px';
+        moveUpBtn.style.height = '40px';
+        moveUpBtn.style.border = 'none';
+        moveUpBtn.style.backgroundColor = 'transparent';
         moveUpBtn.classList.add('moveUpBtn');
-        projectCard.appendChild(moveUpBtn);
+        projectButtons.appendChild(moveUpBtn);
 
         moveUpBtn.disabled = i === 0;
         moveUpBtn.onclick = () => {
@@ -526,16 +554,24 @@ confirmProject.addEventListener('click', (event) => {
         }
         // ⬇️ Move Down Button
         const moveDownBtn = document.createElement('button');
-        moveDownBtn.textContent = '↓';
+        moveDownBtn.textContent = '';
+        moveDownBtn.style.backgroundImage = 'url("img/arrowdown.png")';
+        moveDownBtn.style.backgroundRepeat = 'no-repeat';
+        moveDownBtn.style.backgroundPosition = 'center';
+        moveDownBtn.style.backgroundSize = 'contain';
+        moveDownBtn.style.width = '40px';
+        moveDownBtn.style.height = '40px';
+        moveDownBtn.style.border = 'none';
+        moveDownBtn.style.backgroundColor = 'transparent';
         moveDownBtn.classList.add('moveDownBtn');
-        projectCard.appendChild(moveDownBtn);
+        projectButtons.appendChild(moveDownBtn);
 
         moveDownBtn.disabled = i === projects.length - 1;
         moveDownBtn.onclick = () => {
             [projects[i], projects[i + 1]] = [projects[i + 1], projects[i]];
             reRenderProjects();
         }
-
+        projectCard.appendChild(projectButtons);
         projectCard.addEventListener('click', () => {
             renderProject(project);
         });
