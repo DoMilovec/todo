@@ -479,8 +479,22 @@ confirmProject.addEventListener('click', (event) => {
                 project.description = descriptionInput.value.trim();
                 const selectedDate = dateInput.value;
                 project.dueDate = selectedDate ? new Date(selectedDate).toISOString() : null;
-                
+            
+                renderProject(project);
+                currentProject = project;
                 reRenderProjects();
+            
+                const allProjectCards = document.querySelectorAll('.projectCard');
+                allProjectCards.forEach(card => {
+                    card.classList.remove('projectSelected');
+                });
+            
+                // re-add selected class to the updated project card
+                const updatedCard = Array.from(allProjectCards).find(card =>
+                    card.textContent.includes(project.title)
+                );
+                if (updatedCard) updatedCard.classList.add('projectSelected');
+            
                 modal.close();
             });
 
@@ -535,6 +549,15 @@ confirmProject.addEventListener('click', (event) => {
         projectCard.appendChild(projectButtons);
         projectCard.addEventListener('click', () => {
             renderProject(project);
+            const previouslySelected = document.querySelector('.projectSelected');
+            if (previouslySelected && previouslySelected !== projectCard) {
+                previouslySelected.classList.remove('projectSelected');
+            }
+        
+            // add class to currently clicked card
+            if (!projectCard.classList.contains('projectSelected')) {
+                projectCard.classList.add('projectSelected');
+            }
         });
 
         // delete button and logic to remove specific project
@@ -574,6 +597,14 @@ confirmProject.addEventListener('click', (event) => {
                 }
             }
         });
+        
+    // remove 'projectSelected' from all cards
+    document.querySelectorAll('.projectCard.projectSelected').forEach(card => {
+        card.classList.remove('projectSelected');
+    });
+    // add the class to newly created project
+    projectCard.classList.add('projectSelected');
+
     }}
     
     reRenderProjects();
