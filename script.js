@@ -139,7 +139,7 @@ function renderProject(project) {
     // New Todo button
     const newTodoBtn = document.createElement('button');
     newTodoBtn.classList.add('newTodoBtn');
-    newTodoBtn.textContent = 'New Todo';
+    newTodoBtn.textContent = 'Add Task';
     main.appendChild(newTodoBtn);
 
     // Show existing todos
