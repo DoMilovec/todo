@@ -29,6 +29,18 @@ body {
     padding-left: 0.5em;
 }
 
+.logoImg {
+    width: 5em;
+    display: grid;
+    place-content: center;
+    margin-top: 0.12em;
+}
+
+.copyright {
+    font-size: 0.35em;
+    align-self: end;
+}
+
 #todayDate {
     padding-right: 1em;
     font-size: 0.5em;
@@ -55,7 +67,7 @@ body {
 .projectsContainer {
     display: flex;
     flex-direction: column;
-    gap: 4em;
+    gap: 4.5em;
 }
 
 .markedToday {
@@ -138,6 +150,7 @@ body {
     box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
     display: grid;
     gap: 3vh;
+    border: 1px black solid;
 }
 
 .projectButtons {
@@ -175,10 +188,10 @@ body {
 }
 
 .dateDiv {
-    color: red;
+    color: rgb(250, 0, 0);
     position: absolute;
-    bottom: -60%;
-    left: 25%;
+    bottom: -35.5%;
+    left: 33%;
     justify-self: center;
     border-left: grey 1px solid;
     border-right: grey 1px solid;
@@ -187,6 +200,7 @@ body {
     padding: 0.2em;
     margin-top: 0.2em;
     background-color: rgba(255, 255, 255, 0.938);
+    font-size: 1em;
 }
 
 .openProjectBtn {
@@ -293,7 +307,8 @@ body {
     }
   }
   
-  dialog#dialog {
+  dialog#dialog, 
+  #editProjectModal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -301,17 +316,16 @@ body {
     border: none;
     border-radius: 12px;
     padding: 2rem;
-    width: 400px;
+    width: 500px;
     max-width: 90vw;
     background: #ffffff;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     font-family: "Oswald", sans-serif;
-  
-    /* 👇 New animation using keyframes */
     animation: fadeInScale 0.3s ease-out;
   }
   
-  dialog::backdrop {
+  dialog::backdrop,
+  #editProjectModal::backdrop {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(3px);
   }
@@ -352,7 +366,9 @@ form textarea {
 }
 
 button.confirmProject,
-button.cancelProject {
+button.cancelProject,
+.newSaveBtn, 
+.newCancelBtn {
     padding: 0.6rem 1rem;
     border: none;
     border-radius: 8px;
@@ -361,22 +377,25 @@ button.cancelProject {
     transition: background-color 0.2s ease;
 }
 
-button.confirmProject {
+button.confirmProject,
+.newSaveBtn {
     background-color: rgb(0, 173, 9);
     color: white;
 }
 
-button.confirmProject:hover {
+button.confirmProject:hover, 
+.newSaveBtn:hover {
     background-color: rgb(0, 214, 64);
 }
 
-button.cancelProject {
+button.cancelProject,
+.newCancelBtn {
     background-color: #e0e0e0;
     color: #333;
-    margin-left: 0.5rem;
 }
 
-button.cancelProject:hover {
+button.cancelProject:hover,
+.newCancelBtn:hover {
     background-color: #d0d0d0;
 }
 
@@ -425,7 +444,7 @@ button.confirmProject:disabled {
   .percentage-label {
     font-size: 4px;
     font-weight: bold;
-    fill: #333;
+    fill: #3d3d3d;
     transform: rotate(90deg);
     transform-origin: center;
   }  

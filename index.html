@@ -11,7 +11,14 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo">To Do Doc</div>
+        <div class="logo">
+            <p>
+                <a href="index.html">
+                    <img src="img/logo.png" alt="Today" class="logoImg">
+                </a>
+            </p>
+        </div>
+        <div class="copyright">Dominik Milovec © 2025</div>
         <div id="todayDate"></div>
     </div>
     <div class="sidebar">
@@ -33,7 +40,7 @@
                     </div>
                     <div class="project-description">
                         <label for="autprojectDescriptionhor">Project description:</label>
-                        <textarea rows="3" id="projectDescription" name="projectDescription" maxlength="50"></textarea>
+                        <textarea rows="3" id="projectDescription" name="projectDescription" maxlength="400"></textarea>
                     </div>
                     <div class="project-date">
                         <label for="projectDate">Due date:</label>
@@ -48,9 +55,9 @@
         <dialog id="editProjectModal">
             <div class="modalContent">
                 <label for="editProjectTitle">Title</label>
-                <input type="text" id="editProjectTitle" placeholder="Enter title" />
+                <input type="text" id="editProjectTitle" placeholder="Enter title" maxlength="50"/>
                 <label for="editProjectDescription">Description</label>
-                <textarea id="editProjectDescription" placeholder="Enter description"></textarea>
+                <textarea id="editProjectDescription" rows="3" maxlength="400" placeholder="Enter description"></textarea>
                 <label for="editProjectDate">Due date:</label>
                 <input id="editProjectDate" name="editProjectDate" type="date">
                 <button id="saveProjectBtn">Save</button>

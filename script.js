@@ -59,7 +59,12 @@ function updateProgress(project) {
     const offset = 100 - percentage; // reverse fill
     circle.style.strokeDashoffset = offset;
 
-    text.textContent = `Progress: ${percentage}%`;
+    if (percentage === 100) {
+        text.textContent = `Project complete!`;
+    } else {
+        text.textContent = `Progress: ${doneCount} / ${totalCount}`;
+    }
+    
 }
 
 
@@ -471,6 +476,7 @@ confirmProject.addEventListener('click', (event) => {
             descriptionInput.value = project.description;
         
             const newSaveBtn = saveProjectBtn.cloneNode(true);
+            newSaveBtn.classList.add('newSaveBtn');
             saveProjectBtn.parentNode.replaceChild(newSaveBtn, saveProjectBtn);
         
             // save edit button
@@ -499,6 +505,7 @@ confirmProject.addEventListener('click', (event) => {
             });
 
             const newCancelBtn = cancelEditBtn.cloneNode(true);
+            newCancelBtn.classList.add('newCancelBtn');
             cancelEditBtn.parentNode.replaceChild(newCancelBtn, cancelEditBtn);
             newCancelBtn.addEventListener('click', () => {
                 modal.close();
