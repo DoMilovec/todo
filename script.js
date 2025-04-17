@@ -100,6 +100,18 @@ function renderProject(project) {
         }
     }
 
+    // new todo button and progress bar wrapper
+    const mainCirclesWrapper = document.createElement('div');
+    mainCirclesWrapper.classList.add('mainCirclesWrapper');
+    main.appendChild(mainCirclesWrapper);
+
+    // new Todo button
+    const newTodoBtn = document.createElement('button');
+    newTodoBtn.classList.add('newTodoBtn');
+    newTodoBtn.textContent = 'Add Task';
+    mainCirclesWrapper.appendChild(newTodoBtn);
+
+    // progress bar
     const progressWrapper = document.createElement('div');
     progressWrapper.classList.add('progressWrapper');
     
@@ -127,7 +139,7 @@ function renderProject(project) {
     progressCircle.appendChild(circle);
     progressCircle.appendChild(progressText);
     progressWrapper.appendChild(progressCircle);
-    main.appendChild(progressWrapper);
+    mainCirclesWrapper.appendChild(progressWrapper);
     
 
     // Save reference for updates
@@ -135,12 +147,6 @@ function renderProject(project) {
         circle,
         text: progressText
     };
-
-    // New Todo button
-    const newTodoBtn = document.createElement('button');
-    newTodoBtn.classList.add('newTodoBtn');
-    newTodoBtn.textContent = 'Add Task';
-    main.appendChild(newTodoBtn);
 
     // Show existing todos
     renderTodos(project);
@@ -190,6 +196,7 @@ function renderProject(project) {
 
 function renderTodos(project) {
     const todosContainer = document.createElement('div');
+    todosContainer.classList.add('todosContainer');
     todosContainer.textContent = '';
     main.appendChild(todosContainer);
     
@@ -263,6 +270,9 @@ function renderTodos(project) {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.classList.add('todoCheckbox');
+        checkbox.id = 'cbtest-19';
+        const checkboxId = `cb-${todo.id}`;
+        checkbox.id = checkboxId;
         if (todo.isChecked){
             checkbox.checked = true;
             todoCard.classList.add('isChecked');
@@ -312,7 +322,17 @@ function renderTodos(project) {
         
             renderTodos(project); // re-render to shift or unshift after change
         })
-        todoCard.appendChild(checkbox);
+        
+        const checkboxWrapper = document.createElement('div');
+        checkboxWrapper.classList.add('checkbox-wrapper-19');
+        
+        const checkboxLabel = document.createElement('label');
+        checkboxLabel.classList.add('check-box');
+        checkboxLabel.setAttribute('for', checkboxId); // ✅ matches unique ID
+        
+        checkboxWrapper.appendChild(checkbox);
+        checkboxWrapper.appendChild(checkboxLabel);
+        todoCard.appendChild(checkboxWrapper);
 
         // Today button todo
         const todayTodoBtn = document.createElement('button');
