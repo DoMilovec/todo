@@ -689,7 +689,7 @@ showMarkedTodayBtn.addEventListener('click', () => {
             
             // project title
             const titleSpan = document.createElement('span');
-            titleSpan.textContent = projectName;
+            titleSpan.textContent = todo.title;
             projectNameDiv.appendChild(titleSpan);
             
             // open that project button

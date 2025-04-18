@@ -203,12 +203,20 @@ body {
     border: 3px solid rgba(200, 200, 200, 0.5);
 }
 
-.markedToday {
-    background-color: lightyellow;
+.markedToday:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    background-color: #ffac12da;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
 }
 
 .markedPrio {
-    background-color: coral;
+    border-color: #ff4112;
 }
 
 .todayTodoBtn {
