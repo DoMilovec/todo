@@ -201,7 +201,14 @@ body {
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     border: 3px solid rgba(200, 200, 200, 0.5);
+    transition: transform 0.5s ease;    
 }
+
+/* for marking priority */
+.todoCard.moving {
+    transition: transform 0.5s ease;
+    transform: scale(1.01);
+  }
 
 .markedToday:after {
     content: '';
@@ -213,7 +220,23 @@ body {
     background-color: #ffac12da;
     border-bottom-left-radius: 0.3em;
     border-bottom-right-radius: 0.3em;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: fadeBorder 0.5s ease-out forwards;
+    transform-origin: left;
 }
+
+@keyframes fadeBorder {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+  
 
 .markedPrio {
     border-color: #ff4112;

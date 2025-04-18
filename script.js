@@ -323,7 +323,10 @@ function renderTodos(project) {
                 delete todo._wasPrio;
             }
         
-            renderTodos(project); // re-render to shift or unshift after change
+            setTimeout(() => {
+                renderTodos(project); // re-render to shift or unshift after change
+            }, 800);
+
         })
         
         const checkboxWrapper = document.createElement('div');
@@ -359,6 +362,9 @@ function renderTodos(project) {
         prioTodoBtn.addEventListener('click', () => {
             todo.isMarkedPrio = !todo.isMarkedPrio;
 
+            // Add 'moving' class to trigger the transition
+            todoCard.classList.add('moving');
+
             // Remove from current position
             const index = project.todos.findIndex(t => t.id === todo.id);
             if (index !== -1) project.todos.splice(index, 1);
@@ -374,7 +380,11 @@ function renderTodos(project) {
                 }
             }
         
+        // add little delay with adding moving class when selecting prio
+        setTimeout(() => {
             renderTodos(project);
+            todoCard.classList.remove('moving');
+        }, 500);
         });
 
         if (todo.isChecked) {
