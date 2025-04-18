@@ -53,15 +53,17 @@ body {
     place-items: center;
     gap: 2em;
     background-color: #c8c8c88a;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     align-content: start;
     box-shadow: 0px 0px 20px #3d3d3d;
-    margin-top: 0.29em;
+    border-right: 3px solid #f0b741;
+    margin-top: 0.25em;
 }
 
 .main {
     padding: 2em;
-    padding-left: 2em;
+    padding-left: 4em;
     grid-area: main;
 }
 
@@ -71,14 +73,20 @@ body {
 
 .projectCardTitle {
     font-weight: bold;
-    font-size: 3em;
+    font-size: 3.5em;
 }
 
 .projectCardDesc {
-    font-size: 1em;
+    font-size: 1.5em;
     margin-top: 0.8em;
     margin-bottom: 0.8em;
     max-width: 50vw;
+}
+
+.dateDivMain {
+    color: red;
+    margin-bottom: 0.8em;
+    font-size: 1.5em;
 }
 
 .newTodoBtn {
@@ -124,27 +132,27 @@ body {
     transform: scale(1.05);
   }
 
-.dateDivMain {
-    color: red;
-    margin-bottom: 0.8em;
-}
-
 .projectsContainer {
     display: flex;
     flex-direction: column;
     gap: 4.5em;
 }
 
-.markedToday {
-    background-color: lightyellow;
-}
-
-.markedPrio {
-    background-color: coral;
-}
-
 .isChecked {
-    opacity: 0.5;
+    opacity: 0.65;
+}
+
+.isChecked div:nth-child(1){
+    text-decoration: line-through;
+}
+
+.isChecked button{
+    color: red;
+}
+
+.isChecked button:hover{
+    color: red;
+    border-color: red;
 }
 
 #editProjectModal {
@@ -166,11 +174,13 @@ body {
     cursor: text;
     min-height: 1em;
     padding: 4px 8px;
+    font-size: 1.4em;
 }
 
 .todoCardDesc {
     color: grey;
     padding: 4px 8px;
+    font-size: 1.1em;
 }
 
 .todoCardWrapper {
@@ -186,11 +196,107 @@ body {
     padding: 2em;
     background-color: #ffffffbb;
     margin: 2em;
-    border: 3px solid rgba(255, 255, 255, 0);
-    border-radius: 1em;
+    border-radius: 0.5em;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 3px solid rgba(200, 200, 200, 0.5);
+}
+
+.markedToday {
+    background-color: lightyellow;
+}
+
+.markedPrio {
+    background-color: coral;
+}
+
+.todayTodoBtn {
+    font-family: 'Jost', sans-serif;
+    color: #ffac12;
+    background: transparent;
+    border: 2px solid rgba(200, 200, 200, 0.5);
+    border-radius: 0.8em;
+    padding: 0.7em 1.4em;
+    font-size: 1em;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease-in-out;
+}
+
+.todayTodoBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #ffac12;
+    color: #ffaa00;
+}
+  
+.todayTodoBtn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.prioTodoBtn {
+    font-family: 'Jost', sans-serif;
+    color: #ff4112;
+    background: transparent;
+    border: 2px solid rgba(200, 200, 200, 0.5);
+    border-radius: 0.8em;
+    padding: 0.7em 1.4em;
+    font-size: 1em;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 0 2em;
+}
+
+.prioTodoBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #ff4112;
+    color: #ff4112;
+  }
+  
+.prioTodoBtn:active {
+transform: scale(0.98);
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.delTodoBtn {
+    font-family: 'Jost', sans-serif;
+    color: #3d3d3d;
+    background: transparent;
+    border: 2px solid rgba(200, 200, 200, 0.5);
+    border-radius: 0.8em;
+    padding: 0.7em 1.4em;
+    font-size: 1em;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.delTodoBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: #3d3d3d;
+    color: #3d3d3d;
+  }
+  
+.delTodoBtn:active {
+transform: scale(0.98);
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .checkbox-wrapper-19 {

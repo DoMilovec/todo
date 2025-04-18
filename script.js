@@ -166,6 +166,9 @@ function renderProject(project) {
         inputTodoDesc.placeholder = 'Description';
         todoInputWrapper.appendChild(inputTodoDesc);
 
+        inputTodoTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        inputTodoTitle.focus();
+
         const inputTodoConfirm = document.createElement('button');
         inputTodoConfirm.classList.add('inputTodoConfirm');
         inputTodoConfirm.textContent = 'confirm';
@@ -336,7 +339,7 @@ function renderTodos(project) {
 
         // Today button todo
         const todayTodoBtn = document.createElement('button');
-        todayTodoBtn.textContent = 'today';
+        todayTodoBtn.textContent = 'to do today';
         todayTodoBtn.classList.add('todayTodoBtn');
         todoCard.appendChild(todayTodoBtn);
         todayTodoBtn.addEventListener('click', () => {
@@ -350,7 +353,7 @@ function renderTodos(project) {
 
         // Priority button todo
         const prioTodoBtn = document.createElement('button');
-        prioTodoBtn.textContent = 'prio';
+        prioTodoBtn.textContent = '🏴 priority';
         prioTodoBtn.classList.add('prioTodoBtn');
         todoCard.appendChild(prioTodoBtn);
         prioTodoBtn.addEventListener('click', () => {
