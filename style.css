@@ -166,8 +166,59 @@ body {
 }
 
 .todoInputWrapper {
-    display: grid;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    width: 100%;
+    padding: 1em;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px dashed rgba(255, 172, 18, 0.4);
+    border-radius: 0.6em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    font-family: Jost, sans-serif;
+  }
+  
+  .inputTodoTitle,
+  .inputTodoDesc {
+    padding: 0.8em 1em;
+    border: none;
+    border-radius: 0.4em;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 1em;
+    color: #333;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .inputTodoTitle:focus,
+  .inputTodoDesc:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffac12;
+  }
+  
+  .inputTodoConfirm,
+  .inputTodoCancel {
+    align-self: flex-start;
+    padding: 0.6em 1.4em;
+    background: none;
+    border: 2px solid #ffac12;
+    border-radius: 0.4em;
+    font-size: 1em;
+    color: #ffac12;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .inputTodoConfirm:hover,
+  .inputTodoCancel:hover {
+    background-color: rgba(255, 172, 18, 0.1);
+    transform: scale(1.05);
+  }
+  
 
 .todoCardTitle {
     font-weight: bold;
@@ -202,6 +253,10 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     border: 3px solid rgba(200, 200, 200, 0.5);
     transition: transform 0.5s ease;    
+}
+
+.todoButtonsDiv {
+    display: flex;
 }
 
 /* for marking priority */
@@ -525,12 +580,11 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     border-radius: 0.1em;
     background: white;
     cursor: pointer;
-    border: none;
     transition: all 0.3s;
     box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
     display: grid;
     gap: 3vh;
-    border: 1px black solid;
+    border: 1px #3d3d3d solid;
 }
 
 .projectButtons {
@@ -555,7 +609,7 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .projectCard:hover {
-    box-shadow: 0 0 5px 5px #3d3d3d;
+    box-shadow: 0 0 3px 4px #3d3d3d;
   }
 
 .projectCard:active {
@@ -564,7 +618,8 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
 .projectSelected {
-    box-shadow: 0 0 5px 5px #3d3d3d;
+    box-shadow: 0 0 3px 4px #3d3d3d;
+    transform: scale(1.1);
 }
 
 .dateDiv {

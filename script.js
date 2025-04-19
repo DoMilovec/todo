@@ -174,6 +174,11 @@ function renderProject(project) {
         inputTodoConfirm.textContent = 'confirm';
         todoInputWrapper.appendChild(inputTodoConfirm);
 
+        const inputTodoCancel = document.createElement('button');
+        inputTodoCancel.classList.add('inputTodoCancel');
+        inputTodoCancel.textContent = 'cancel';
+        todoInputWrapper.appendChild(inputTodoCancel);
+
         inputTodoConfirm.addEventListener('click', (event) => {
             newTodoBtn.disabled = false;
             event.preventDefault();
@@ -190,10 +195,13 @@ function renderProject(project) {
 
             renderTodos(currentProject);
 
-            inputTodoTitle.remove();
-            inputTodoDesc.remove();
-            inputTodoConfirm.remove();
+            todoInputWrapper.remove();
         });
+
+        inputTodoCancel.addEventListener('click', (event) => {
+            newTodoBtn.disabled = false;
+            todoInputWrapper.remove();
+        })
     });
 }
 
@@ -325,7 +333,7 @@ function renderTodos(project) {
         
             setTimeout(() => {
                 renderTodos(project); // re-render to shift or unshift after change
-            }, 800);
+            }, 0);
 
         })
         
@@ -340,11 +348,14 @@ function renderTodos(project) {
         checkboxWrapper.appendChild(checkboxLabel);
         todoCard.appendChild(checkboxWrapper);
 
+        const todoButtonsDiv = document.createElement('div');
+        todoButtonsDiv.classList.add('todoButtonsDiv');
+
         // Today button todo
         const todayTodoBtn = document.createElement('button');
         todayTodoBtn.textContent = 'to do today';
         todayTodoBtn.classList.add('todayTodoBtn');
-        todoCard.appendChild(todayTodoBtn);
+        todoButtonsDiv.appendChild(todayTodoBtn);
         todayTodoBtn.addEventListener('click', () => {
             todo.isMarkedToday = !todo.isMarkedToday; 
             if (todo.isMarkedToday) {
@@ -358,7 +369,7 @@ function renderTodos(project) {
         const prioTodoBtn = document.createElement('button');
         prioTodoBtn.textContent = '🏴 priority';
         prioTodoBtn.classList.add('prioTodoBtn');
-        todoCard.appendChild(prioTodoBtn);
+        todoButtonsDiv.appendChild(prioTodoBtn);
         prioTodoBtn.addEventListener('click', () => {
             todo.isMarkedPrio = !todo.isMarkedPrio;
 
@@ -399,13 +410,15 @@ function renderTodos(project) {
         const delTodoBtn = document.createElement('button');
         delTodoBtn.textContent = '✘';
         delTodoBtn.classList.add('delTodoBtn');
-        todoCard.appendChild(delTodoBtn);
+        todoButtonsDiv.appendChild(delTodoBtn);
         delTodoBtn.addEventListener('click', () => {
             const index = project.todos.findIndex(t => t.id === todo.id);
             if (index !== -1) project.todos.splice(index, 1);
             todoCard.remove();
+            renderTodos(currentProject);
         });
 
+        todoCard.appendChild(todoButtonsDiv);
         todosContainer.appendChild(todoCard);
         });
         updateProgress(project);
