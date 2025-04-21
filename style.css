@@ -23,10 +23,12 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 2px 0px #3d3d3d;
+    position: relative;
 }
 
 .logo {
     padding-left: 0.5em;
+    flex: 1;
 }
 
 .logoImg {
@@ -39,6 +41,53 @@ body {
 .copyright {
     font-size: 0.35em;
     align-self: end;
+    position: absolute;
+}
+
+.loginStatus {
+  display: grid;
+  place-content: center;
+  margin-right: 0.5em;
+}
+
+#signUpBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #ffac12;
+  padding: 0.5em 1.4em;
+  font-family: Jost, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffac12;
+  border-radius: 0.65em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 3px 14px rgba(255, 172, 18, 0.12);
+}
+
+#signUpBtn:hover {
+  background: rgba(255, 172, 18, 0.08);
+  box-shadow: 0 6px 18px rgba(255, 172, 18, 0.25);
+  transform: translateY(-1px);
+}
+
+#signUpBtn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(255, 172, 18, 0.2);
+}
+
+#signUpBtn svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+#signUpBtn:active svg {
+  transform: scale(0.9);
 }
 
 #todayDate {

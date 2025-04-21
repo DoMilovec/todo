@@ -686,7 +686,7 @@ showMarkedTodayBtn.addEventListener('click', () => {
 
     // if no todos marked for today, show a message
     if (projectsMap.size === 0) {
-        main.textContent = 'No todos marked for today.';
+        main.textContent = 'No tasks marked for today.';
         return;
     }
 
