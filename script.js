@@ -698,7 +698,7 @@ showMarkedTodayBtn.addEventListener('click', () => {
         
         // project name
         const projectNameDiv = document.createElement('div');
-        projectNameDiv.classList.add('todayProjectName');
+        projectNameDiv.classList.add('todayProjectNameUpper');
         projectNameDiv.textContent = projectName;
         todayTodosSection.appendChild(projectNameDiv);
 
@@ -711,13 +711,13 @@ showMarkedTodayBtn.addEventListener('click', () => {
             projectNameDiv.classList.add('todayProjectName');
             
             // project title
-            const titleSpan = document.createElement('span');
-            titleSpan.textContent = todo.title;
-            projectNameDiv.appendChild(titleSpan);
+            const titleDiv = document.createElement('div');
+            titleDiv.textContent = todo.title;
+            projectNameDiv.appendChild(titleDiv);
             
             // open that project button
             const openProjectBtn = document.createElement('button');
-            openProjectBtn.textContent = '🔍 Open';
+            openProjectBtn.textContent = '🔍 Open Project';
             openProjectBtn.classList.add('openProjectBtn');
             openProjectBtn.addEventListener('click', () => {
                 const projectToOpen = projects.find(p => p.title === projectName);

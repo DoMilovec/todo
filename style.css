@@ -291,7 +291,78 @@ body {
       transform: scaleX(1);
     }
   }
+
+/* Add wrapper look around both span + todo card */
+.todayProjectName {
+    background: rgba(255, 255, 255);
+    padding: 0.8em 1.2em;
+    border-radius: 0.8em 0.8em 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-bottom: none;
+    backdrop-filter: blur(8px);
+    
+    
+  }
   
+  /* The span inside acts like a heading */
+  .todayProjectName div {
+    font-size: 1em;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .todayProjectNameUpper {
+    color: #ffac12;
+    font-size: 1.8em;
+    font-weight: bolder;
+    margin-bottom: 0.4em;
+  }
+  
+  /* The card that "attaches" under it */
+  .todayTodoCard {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 0 0 0.8em 0.8em;
+    padding: 1em 1.2em;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    margin-bottom: 1em;
+  }
+  
+  /* Desc inside */
+  .todayTodoCardDesc {
+    flex: 1;
+    font-size: 1em;
+    color: #414141;
+  }
+  
+  /* Checkbox */
+  .todoCheckbox {
+    width: 1.4em;
+    height: 1.4em;
+    accent-color: #ffac12;
+    margin-left: 1em;
+    transition: transform 0.2s ease;
+    position: relative;
+  }
+  
+.todoCheckbox:before {
+    content: 'Mark as done:';
+    position: absolute;
+    left: -5.5em;
+    top: -0.4em;
+    font-size: 1.6em;
+}
+  
+
 
 .markedPrio {
     border-color: #ff4112;
@@ -641,16 +712,16 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 .openProjectBtn {
     margin-left: 10px;
     padding: 2px 6px;
-    font-size: 0.8rem;
+    font-size: 1.33em;
     cursor: pointer;
     border: none;
-    background-color: #e0e0e0;
+    background-color: #ffac12;
     border-radius: 4px;
     transition: background-color 0.2s;
 }
 
 .openProjectBtn:hover {
-    background-color: #c8c8c8;
+    background-color: #ac7000;
 }
 
 .cssbuttons-io-button {
