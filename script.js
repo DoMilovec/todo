@@ -7,8 +7,38 @@ const selectProjectDate = document.querySelector('#projectDate');
 const confirmProject = document.querySelector('.confirmProject');
 const cancelProject = document.querySelector('.cancelProject');
 const main = document.querySelector('.main');
+const signUpBtnHeader = document.querySelector('#signUpBtnHeader');
+const signUpForm = document.querySelector('.signUpForm');
+const signUpBtn = document.querySelector('.signUpBtn');
+const loggedOut = document.querySelector('.loggedOut');
+const loggedIn = document.querySelector('.loggedIn');
 
 const projects = [];
+
+// Create the welcome container dynamically
+const welcomeContainer = document.createElement('div');
+welcomeContainer.className = 'welcome-container';
+
+// Create the heading (Welcome to Today)
+const welcomeHeading = document.createElement('h1');
+welcomeHeading.textContent = 'Welcome to Today';
+
+// Create the subheading (Your simple, fast, and fun task planner)
+const welcomeSubheading = document.createElement('p');
+welcomeSubheading.textContent = 'Your simple, fast, and fun task planner.';
+
+// Create the motivational line (Make today count)
+const motivationText = document.createElement('p');
+motivationText.className = 'motivation';
+motivationText.textContent = 'Make today count.';
+
+// Append the elements to the welcome container
+welcomeContainer.appendChild(welcomeHeading);
+welcomeContainer.appendChild(welcomeSubheading);
+welcomeContainer.appendChild(motivationText);
+
+// Append the welcome container to the body (or to a specific parent element)
+main.appendChild(welcomeContainer);
 
 confirmProject.disabled = true;
 selectProjectName.addEventListener('input', () => {
@@ -694,6 +724,11 @@ showMarkedTodayBtn.addEventListener('click', () => {
     todayTodosSection.classList.add('todayTodosSection');
     main.appendChild(todayTodosSection);
 
+    const todayTodosSectionTitle = document.createElement('div');
+    todayTodosSectionTitle.classList.add('todayTodosSectionTitle');
+    todayTodosSectionTitle.textContent = "Today's tasks:"
+    todayTodosSection.appendChild(todayTodosSectionTitle);
+
     projectsMap.forEach((todos, projectName) => {
         
         // project name
@@ -791,3 +826,101 @@ const formattedTodayDate = todayDate.toLocaleDateString('en-GB', {
   year: 'numeric'
 });
 document.getElementById('todayDate').textContent = formattedTodayDate;
+
+function openModal() {
+    document.getElementById("signUpModal").style.display = "flex";
+  }
+  
+  function closeModal() {
+    document.getElementById("signUpModal").style.display = "none";
+  }
+  
+  function validatePasswords(event) {
+    const username = document.getElementById("username");
+    const email = document.getElementById("email");
+    const pw1 = document.getElementById("password");
+    const pw2 = document.getElementById("confirmPassword");
+
+        // Clear old validity messages
+    username.setCustomValidity('');
+    pw2.setCustomValidity('');
+  
+    // Clear previous custom messages
+    username.setCustomValidity('');
+    pw2.setCustomValidity('');
+  
+    // Username check
+    if (username.value.length < 4) {
+      username.setCustomValidity("Username must be at least 4 characters long.");
+      username.reportValidity();
+      event.preventDefault();
+      return false;
+    }
+  
+    // ✅ validations passed, show user icon and name
+    const userInfoWrapper = document.createElement('div');
+    userInfoWrapper.classList.add('userInfoWrapper');
+
+    const userDisplayName = document.createElement('div');
+    userDisplayName.classList.add('userDisplayName');
+    userInfoWrapper.appendChild(userDisplayName);
+    userDisplayName.textContent = username.value;
+
+    const userDisplayEmail = document.createElement('div');
+    userDisplayEmail.classList.add('userDisplayEmail');
+    userInfoWrapper.appendChild(userDisplayEmail);
+    userDisplayEmail.textContent = email.value;
+    
+    const userDisplayAvatar = document.createElement('img');
+    userDisplayAvatar.classList.add('userDisplayAvatar');
+    userDisplayAvatar.src = 'img/avatar.png';
+    loggedIn.appendChild(userInfoWrapper);
+    loggedIn.appendChild(userDisplayAvatar);
+
+    event.preventDefault(); // Prevent default form submission
+    closeModal();
+
+    loggedOut.style.display = 'none';
+    loggedIn.style.display = 'flex';
+
+    userDisplayAvatar.addEventListener('click', (event) => {
+        let existingMenu = document.getElementById('dropdownMenu');
+
+        if (existingMenu) {
+          existingMenu.remove(); // Toggle off
+          return;
+        }
+      
+        const dropdownMenu = document.createElement('div');
+        dropdownMenu.id = 'dropdownMenu';
+        dropdownMenu.className = 'dropdown-menu';
+      
+        const profileBtn = document.createElement('button');
+        profileBtn.textContent = '👤 Profile';
+      
+        const settingsBtn = document.createElement('button');
+        settingsBtn.textContent = '⚙️ Settings';
+      
+        const logoutBtn = document.createElement('button');
+        logoutBtn.textContent = '🚪 Logout';
+      
+        dropdownMenu.append(profileBtn, settingsBtn, logoutBtn);
+      
+        userDisplayAvatar.parentElement.appendChild(dropdownMenu);
+    })    
+
+    // close dropdown on click elsewhere
+    document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('dropdownMenu');
+        const avatar = document.getElementById('userDisplayAvatar');
+        if (dropdown && !avatar.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.remove();
+        }
+      });
+    
+  }
+  
+
+signUpBtnHeader.addEventListener('click', (event) => {
+    openModal();
+})

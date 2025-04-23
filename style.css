@@ -40,17 +40,53 @@ body {
 
 .copyright {
     font-size: 0.35em;
-    align-self: end;
+    left: 20%;
     position: absolute;
 }
 
-.loginStatus {
+.loggedOut {
   display: grid;
   place-content: center;
   margin-right: 0.5em;
 }
 
-#signUpBtn {
+.loggedIn {
+  display: none;
+  margin-right: 0.5em;
+  align-items: center;
+  position: relative;
+}
+
+.userInfoWrapper {
+  text-align: end;
+  margin-right: 0.2em;
+}
+
+.userDisplayName {
+  font-size: 0.3em;
+  color: #f5f5f5;
+}
+
+.userDisplayEmail {
+  font-size: 0.3em;
+  color: #666;
+}
+
+.userDisplayAvatar {
+  height: 1em;
+  width: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  border-radius: 50%;
+}
+
+.userDisplayAvatar:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+#signUpBtnHeader {
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
@@ -68,25 +104,25 @@ body {
   box-shadow: 0 3px 14px rgba(255, 172, 18, 0.12);
 }
 
-#signUpBtn:hover {
+#signUpBtnHeader:hover {
   background: rgba(255, 172, 18, 0.08);
   box-shadow: 0 6px 18px rgba(255, 172, 18, 0.25);
   transform: translateY(-1px);
 }
 
-#signUpBtn:active {
+#signUpBtnHeader:active {
   transform: scale(0.97);
   box-shadow: 0 2px 8px rgba(255, 172, 18, 0.2);
 }
 
-#signUpBtn svg {
+#signUpBtnHeader svg {
   width: 1em;
   height: 1em;
   fill: currentColor;
   transition: transform 0.3s ease;
 }
 
-#signUpBtn:active svg {
+#signUpBtnHeader:active svg {
   transform: scale(0.9);
 }
 
@@ -204,10 +240,6 @@ body {
     border-color: red;
 }
 
-#editProjectModal {
-    width: 400px;
-    padding: 20px;
-}
 .modalContent {
     display: flex;
     flex-direction: column;
@@ -314,6 +346,11 @@ body {
     transform: scale(1.01);
   }
 
+.todayTodosSectionTitle {
+  font-size: 2em;
+  color: #3d3d3d;
+}
+  
 .markedToday:after {
     content: '';
     position: absolute;
@@ -729,17 +766,17 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .projectCard:hover {
-    box-shadow: 0 0 3px 4px #3d3d3d;
+    box-shadow: 0 0 3px 4px #7e7e7e;
   }
 
 .projectCard:active {
-    color: #666;
+    color: #7e7e7e;
     box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
   }
 
 .projectSelected {
-    box-shadow: 0 0 3px 4px #3d3d3d;
-    transform: scale(1.1);
+    box-shadow: 0 0 3px 4px #7e7e7e;
+    transform: scale(1.05);
 }
 
 .dateDiv {
@@ -885,6 +922,26 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(3px);
   }
 
+  #editProjectModal {
+    width: 500px;
+    padding: 0;
+}
+
+.modalContent {
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 172, 18, 0.4);
+  border-radius: 12px;
+  padding: 2em;
+  width: 500px;
+  max-width: 90vw;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+
 form {
     display: flex;
     flex-direction: column;
@@ -918,6 +975,10 @@ form textarea:focus {
 
 form textarea {
     resize: none;
+}
+
+input#username {
+  background-color: #FFFFFF0D;
 }
 
 button.confirmProject,
@@ -1003,3 +1064,206 @@ button.confirmProject:disabled {
     transform: rotate(90deg);
     transform-origin: center;
   }  
+
+/* Modal basics */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.4s ease forwards;
+  z-index: 999;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0.8em;
+  right: 1em;
+  font-size: 1.5em;
+  color: #ffac12;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closeBtn:hover {
+  transform: scale(1.2);
+}
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.signUpForm h2 {
+  color: #ffac12;
+  text-align: center;
+}
+
+.signUpForm label {
+  color: #ddd;
+  font-weight: 500;
+}
+
+.signUpForm input {
+  padding: 0.7em 1em;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.6em;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: 0.3s;
+}
+
+.signUpForm input:focus {
+  border-color: #ffac12;
+  background-color: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+/* Button */
+.signUpBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #ffac12;
+  padding: 0.5em 1.4em;
+  font-family: Jost, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffac12;
+  border-radius: 0.65em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 3px 14px rgba(255, 172, 18, 0.12);
+}
+
+.signUpBtn:hover {
+  background: rgba(255, 172, 18, 0.08);
+  box-shadow: 0 6px 18px rgba(255, 172, 18, 0.25);
+  transform: translateY(-1px);
+}
+
+.signUpBtn:active {
+  transform: scale(0.97);
+}
+
+.signUpBtn svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+#dropdownMenu {
+  position: absolute;
+  top: 110%; /* just below avatar */
+  right: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 0.5em;
+  box-shadow: 0 0.5em 1.5em rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  padding: 0.2em;
+  width: 12rem;
+  z-index: 999;
+  animation: dropdownFade 0.2s ease-out;
+  width: auto;
+}
+
+/* Buttons inside dropdown */
+#dropdownMenu button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: 'Jost', sans-serif;
+  padding: 0.5em 1em;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border-radius: 0.3em;
+}
+
+#dropdownMenu button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Animation */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  height: 80vh;
+  width: 100%;
+  text-align: center;
+  background: #fefefe;
+  font-family: 'Jost', sans-serif;
+  color: #2c2c2c;
+  padding: 2rem;
+  animation: fadeIn 1s ease-in-out;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 5px solid #ffac12;
+}
+
+.welcome-container h1 {
+  font-size: 3.5rem;
+  color: #ffac12;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.welcome-container p {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #555;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.motivation {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #ffac12;
+  margin-top: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* Optional: fade-in animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
