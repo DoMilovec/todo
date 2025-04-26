@@ -1285,3 +1285,90 @@ button.confirmProject:disabled {
   left: 0;
   animation: fadeIn 1s ease-in-out;
 }
+
+@media (max-width: 768px) {
+
+  body {
+    height: 100vh;
+    grid-template-areas: 
+    'header'
+    'main';
+    grid-template-rows: 0fr 1fr;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .sidebar {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .main {
+    padding: 0;
+    margin: 0;
+  }
+
+  .header {
+    width: 100vw;
+    font-size: 1.2rem;
+    height: 5rem;
+    min-height: 0;
+    display: grid;
+    grid-template-areas: 
+      'logo login'
+      'logo date';
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .welcome-container {
+    top: 0;
+  }
+
+  #signUpBtnHeader {
+    font-size: 0.6rem;
+  }
+
+  .logoImg {
+    width: 10rem;
+    display: grid;
+    place-content: center;
+    margin-top: 0.12em;
+ }
+
+ .logo {
+  grid-area: logo;
+ }
+ 
+ .loginStatus {
+  grid-area: login;
+  justify-self: center;
+  align-self: end;
+ }
+
+ #todayDate {
+  grid-area: date;
+  font-size: 0.8rem;
+  place-self: center;
+ }
+
+ .copyright {
+  top: 80%;
+ }
+
+ .loggedIn {
+  font-size: 2rem;
+  margin-right: 0.2em;
+ }
+ 
+ .startNow {
+  top: 7%;
+  left: 2%;
+ }
+ 
+}
