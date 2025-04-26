@@ -32,10 +32,28 @@ const motivationText = document.createElement('p');
 motivationText.className = 'motivation';
 motivationText.textContent = 'Make today count.';
 
+// guide to create first project
+const startNow = document.createElement('p');
+startNow.className = 'startNow';
+startNow.textContent = 'Start by adding your first project.';
+
+const arrow = document.createElement('div');
+arrow.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30" fill="#ffac12">
+    <path d="M20 0 L0 15 L20 30 V20 H60 V10 H20 Z" />
+  </svg>
+`;
+arrow.classList.add('arrow-icon');
+
 // Append the elements to the welcome container
 welcomeContainer.appendChild(welcomeHeading);
 welcomeContainer.appendChild(welcomeSubheading);
 welcomeContainer.appendChild(motivationText);
+
+setTimeout(() => {
+    welcomeContainer.appendChild(startNow);
+    welcomeContainer.appendChild(arrow);
+}, 2000);
 
 // Append the welcome container to the body (or to a specific parent element)
 main.appendChild(welcomeContainer);
