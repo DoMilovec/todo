@@ -12,6 +12,7 @@ const signUpForm = document.querySelector('.signUpForm');
 const signUpBtn = document.querySelector('.signUpBtn');
 const loggedOut = document.querySelector('.loggedOut');
 const loggedIn = document.querySelector('.loggedIn');
+const sidebar = document.querySelector('.sidebar');
 
 const projects = [];
 
@@ -36,13 +37,15 @@ motivationText.textContent = 'Make today count.';
 const startNow = document.createElement('p');
 startNow.className = 'startNow';
 startNow.textContent = 'Start by adding your first project.';
+// mobile version of guidance
+const startNowMobile = document.createElement('p');
+startNowMobile.className = 'startNowMobile';
+startNowMobile.textContent = 'Add and track your projects.';
 
 const arrow = document.createElement('div');
 arrow.innerHTML = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30" fill="#ffac12">
-    <path d="M20 0 L0 15 L20 30 V20 H60 V10 H20 Z" />
-  </svg>
-`;
+<svg fill="#000000" width="4rem" height="4rem" viewBox="0 0 24 24" id="curve-arrow-up-3" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M16,9,11.78,3.39a1,1,0,0,0-1.56,0L6,9" style="fill: none; stroke: #ffac12; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M16,15H13c0,4.27,5,6,5,6-4.21,0-9-1.07-9-6H6l5-6.76Z" style="fill: none; stroke: #3d3d3d; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
+`
 arrow.classList.add('arrow-icon');
 
 // Append the elements to the welcome container
@@ -52,8 +55,12 @@ welcomeContainer.appendChild(motivationText);
 
 setTimeout(() => {
     welcomeContainer.appendChild(startNow);
+}, 3500);
+
+setTimeout(() => {
     welcomeContainer.appendChild(arrow);
-}, 2000);
+    welcomeContainer.appendChild(startNowMobile);
+}, 1500);
 
 // Append the welcome container to the body (or to a specific parent element)
 main.appendChild(welcomeContainer);
@@ -659,6 +666,9 @@ confirmProject.addEventListener('click', (event) => {
             if (!projectCard.classList.contains('projectSelected')) {
                 projectCard.classList.add('projectSelected');
             }
+            sidebarToggleBtn.classList.toggle('active');
+            sidebarToggleBtnInner.classList.toggle('active');
+            toggleSidebar();
         });
 
         // delete button and logic to remove specific project
@@ -942,3 +952,26 @@ function openModal() {
 signUpBtnHeader.addEventListener('click', (event) => {
     openModal();
 })
+
+// sidebar toggling button and logic
+const sidebarToggleBtn = document.querySelector('.sidebarToggle');
+const sidebarToggleBtnInner = document.querySelector('.sidebarToggleInner');
+
+sidebarToggleBtn.addEventListener('click', () => {
+    sidebarToggleBtn.classList.toggle('active');
+    sidebarToggleBtnInner.classList.toggle('active');
+  });
+
+sidebarToggleBtnInner.addEventListener('click', () => {
+    sidebarToggleBtn.classList.toggle('active');
+    sidebarToggleBtnInner.classList.toggle('active');
+});
+
+
+// When clicking either toggle
+function toggleSidebar() {
+    sidebar.classList.toggle('active');
+}
+
+sidebarToggleBtn.addEventListener('click', toggleSidebar);
+sidebarToggleBtnInner.addEventListener('click', toggleSidebar);

@@ -87,6 +87,11 @@ body {
   border-radius: 50%;
 }
 
+.sidebarToggle,
+.sidebarToggleInner {
+  display: none;
+}
+
 #signUpBtnHeader {
   display: inline-flex;
   align-items: center;
@@ -103,6 +108,7 @@ body {
   transition: all 0.2s ease;
   backdrop-filter: blur(6px);
   box-shadow: 0 3px 14px rgba(255, 172, 18, 0.12);
+  z-index: 999;
 }
 
 #signUpBtnHeader:hover {
@@ -1280,12 +1286,15 @@ button.confirmProject:disabled {
 
 .arrow-icon {
   display: none;
-  position: absolute;
-  top: 4.5%;
-  left: 0;
-  animation: fadeIn 1s ease-in-out;
 }
 
+.startNowMobile {
+  display: none;
+  position: absolute;
+}
+
+
+/* MOBILE VERSION */
 @media (max-width: 768px) {
 
   body {
@@ -1302,11 +1311,20 @@ button.confirmProject:disabled {
   }
 
   .sidebar {
-    display: none;
+    transform: translateX(-100%);
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 999;
+    width: 90vw;
+    margin: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    background-color: #eeeeee;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+    opacity: 1;
   }
 
   .main {
@@ -1324,6 +1342,7 @@ button.confirmProject:disabled {
       'logo login'
       'logo date';
     grid-template-columns: 2fr 1fr;
+    position: relative;
   }
 
   .welcome-container {
@@ -1343,6 +1362,7 @@ button.confirmProject:disabled {
 
  .logo {
   grid-area: logo;
+  margin-left: 20%;
  }
  
  .loginStatus {
@@ -1355,6 +1375,7 @@ button.confirmProject:disabled {
   grid-area: date;
   font-size: 0.8rem;
   place-self: center;
+  padding: 0;
  }
 
  .copyright {
@@ -1367,8 +1388,117 @@ button.confirmProject:disabled {
  }
  
  .startNow {
-  top: 7%;
+  top: 12%;
   left: 2%;
  }
  
+ .sidebarToggle,
+ .sidebarToggleInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  background: #3d3d3d;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  border-color: #ffac12;
+}
+
+.sidebarToggle:hover,
+.sidebarToggleInner:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffac12;
+  box-shadow: 0 0 10px #ffac12aa;
+}
+
+.startNowMobile {
+  display: flex;
+  animation: fadeIn 1s ease-in-out;
+  top: 3.5%;
+  left: 15%;
+}
+
+.arrow-icon {
+  display: flex;
+  position: absolute;
+  top: -2.5%;
+  left: -2%;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.sidebarToggle-line {
+  position: absolute;
+  width: 1.8rem;
+  height: 0.2rem;
+  background-color: #ffac12;
+  border-radius: 1rem;
+  transition: all 0.4s ease;
+}
+
+.sidebarToggle-line:nth-child(1) {
+  top: 50%;
+  transform: translateY(-0.6rem);
+}
+
+.sidebarToggle-line:nth-child(2) {
+  top: 50%;
+  transform: translateY(0);
+}
+
+.sidebarToggle-line:nth-child(3) {
+  top: 50%;
+  transform: translateY(0.6rem);
+}
+
+.sidebarToggle.active .sidebarToggle-line:nth-child(1),
+.sidebarToggleInner.active .sidebarToggle-line:nth-child(1) {
+  transform: translateY(0) rotate(45deg);
+}
+
+.sidebarToggle.active .sidebarToggle-line:nth-child(2),
+.sidebarToggleInner.active .sidebarToggle-line:nth-child(2) {
+  opacity: 0;
+}
+
+.sidebarToggle.active .sidebarToggle-line:nth-child(3),
+.sidebarToggleInner.active .sidebarToggle-line:nth-child(3) {
+  transform: translateY(0) rotate(-45deg);
+}
+
+.projectCard {
+ width: 100%;
+ font-size: 1.5rem;
+ margin-bottom: 5px;
+}
+
+.projectButtons {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  scale: 0.8;
+}
+
+.dateDiv {
+  font-size: 1rem;
+  left: 0%;
+  bottom: -6%;
+  border: none;
+  margin: 0;
+  background-color: #ffffff00;
+}
+
+.projectsContainer {
+  gap: 1rem;
+}
 }
