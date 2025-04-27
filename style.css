@@ -1297,6 +1297,11 @@ button.confirmProject:disabled {
 /* MOBILE VERSION */
 @media (max-width: 768px) {
 
+  html,
+  body {
+    overflow: hidden;
+  }
+
   body {
     height: 100vh;
     grid-template-areas: 
@@ -1320,16 +1325,21 @@ button.confirmProject:disabled {
     margin: 0;
     transition: transform 0.4s ease, opacity 0.4s ease;
     background-color: #eeeeee;
+    overflow-y: auto;
+    height: calc(100vh - 10vh);
   }
 
   .sidebar.active {
     transform: translateX(0);
     opacity: 1;
+    overflow-y: auto;
   }
 
   .main {
     padding: 0;
     margin: 0;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .header {
@@ -1343,6 +1353,7 @@ button.confirmProject:disabled {
       'logo date';
     grid-template-columns: 2fr 1fr;
     position: relative;
+    z-index: 888;
   }
 
   .welcome-container {
@@ -1394,7 +1405,7 @@ button.confirmProject:disabled {
  
  .sidebarToggle,
  .sidebarToggleInner {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 2.5rem;
@@ -1410,13 +1421,13 @@ button.confirmProject:disabled {
   cursor: pointer;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(8px);
-  z-index: 1000;
+  z-index: 9999;
   border-color: #ffac12;
 }
 
 .sidebarToggle:hover,
 .sidebarToggleInner:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: #3d3d3d;
   border-color: #ffac12;
   box-shadow: 0 0 10px #ffac12aa;
 }
@@ -1476,7 +1487,7 @@ button.confirmProject:disabled {
 }
 
 .projectCard {
- width: 100%;
+ width: 80vw;
  font-size: 1.5rem;
  margin-bottom: 5px;
 }
@@ -1492,7 +1503,7 @@ button.confirmProject:disabled {
 .dateDiv {
   font-size: 1rem;
   left: 0%;
-  bottom: -6%;
+  bottom: -4%;
   border: none;
   margin: 0;
   background-color: #ffffff00;
@@ -1500,5 +1511,21 @@ button.confirmProject:disabled {
 
 .projectsContainer {
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.projectCardTitle {
+  font-size: 2rem;
+  max-width: 90vw;
+}
+
+.projectCardDesc {
+  font-size: 1rem;
+  max-width: 80vw;
+}
+
+.dateDivMain {
+  font-size: 1.2rem;
 }
 }

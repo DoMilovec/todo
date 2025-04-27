@@ -221,9 +221,6 @@ function renderProject(project) {
         inputTodoDesc.placeholder = 'Description';
         todoInputWrapper.appendChild(inputTodoDesc);
 
-        inputTodoTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        inputTodoTitle.focus();
-
         const inputTodoConfirm = document.createElement('button');
         inputTodoConfirm.classList.add('inputTodoConfirm');
         inputTodoConfirm.textContent = 'confirm';
@@ -257,6 +254,11 @@ function renderProject(project) {
             newTodoBtn.disabled = false;
             todoInputWrapper.remove();
         })
+
+        // scroll vertically by offset and focus title
+        inputTodoTitle.focus();
+        const offset = 400;
+        window.scrollBy(0, offset);
     });
 }
 
@@ -730,6 +732,10 @@ showMarkedTodayBtn.addEventListener('click', () => {
     main.textContent = '';
     const projectsMap = new Map();
 
+    sidebarToggleBtn.classList.toggle('active');
+    sidebarToggleBtnInner.classList.toggle('active');
+    toggleSidebar();
+
     // group todos by project title
     projects.forEach(project => {
         project.todos.forEach(todo => {
@@ -838,6 +844,9 @@ showMarkedTodayBtn.addEventListener('click', () => {
                     }
 
                     showMarkedTodayBtn.click(); // refresh today view
+                    sidebarToggleBtn.classList.toggle('active');
+                    sidebarToggleBtnInner.classList.toggle('active');
+                    toggleSidebar();
                 });
             // append the todo card to the project section
             todayTodosSection.appendChild(todayTodoCard);
@@ -975,3 +984,14 @@ function toggleSidebar() {
 
 sidebarToggleBtn.addEventListener('click', toggleSidebar);
 sidebarToggleBtnInner.addEventListener('click', toggleSidebar);
+
+// if sidebar is active close it by clicking on right non sidebar part
+document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('active')) {
+        if (!sidebar.contains(e.target) && !sidebarToggleBtn.contains(e.target)) {
+            sidebarToggleBtn.classList.toggle('active');
+            sidebarToggleBtnInner.classList.toggle('active');
+            toggleSidebar();
+        }
+    }
+});
