@@ -421,6 +421,11 @@ function renderTodos(project) {
         todayTodoBtn.classList.add('todayTodoBtn');
         todoButtonsDiv.appendChild(todayTodoBtn);
         todayTodoBtn.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                todoButtonsDiv.style.display = 'none';
+                buttonsShown = false;
+                }
+                
             todo.isMarkedToday = !todo.isMarkedToday; 
             if (todo.isMarkedToday) {
                 todoCard.classList.add('markedToday');
@@ -435,6 +440,11 @@ function renderTodos(project) {
         prioTodoBtn.classList.add('prioTodoBtn');
         todoButtonsDiv.appendChild(prioTodoBtn);
         prioTodoBtn.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+            todoButtonsDiv.style.display = 'none';
+            buttonsShown = false;
+            }
+
             todo.isMarkedPrio = !todo.isMarkedPrio;
 
             // Add 'moving' class to trigger the transition
@@ -481,6 +491,37 @@ function renderTodos(project) {
             todoCard.remove();
             renderTodos(currentProject);
         });
+
+        // 3 dots to toggle buttons on mobile
+        if (window.innerWidth <= 768) {
+            todoButtonsDiv.style.display = 'none';
+            const showTodoButtons = document.createElement('button');
+            showTodoButtons.classList.add('showTodoButtons');
+            const span1 = document.createElement('span');
+            const span2 = document.createElement('span');
+            const span3 = document.createElement('span');
+            showTodoButtons.appendChild(span1);
+            showTodoButtons.appendChild(span2);
+            showTodoButtons.appendChild(span3);
+            todoCard.appendChild(showTodoButtons);
+
+            let buttonsShown = false;
+            showTodoButtons.addEventListener('click', (event) => {
+                if (!buttonsShown) {
+                    todoButtonsDiv.style.display = '';
+                    requestAnimationFrame(() => { 
+                      todoButtonsDiv.classList.add('show');
+                    });
+                    buttonsShown = true;
+                } else if (buttonsShown) {
+                    todoButtonsDiv.classList.remove('show');
+                    setTimeout(() => {
+                      todoButtonsDiv.style.display = 'none';
+                    }, 300);
+                    buttonsShown = false;
+                }
+            })
+          }
 
         todoCard.appendChild(todoButtonsDiv);
         todosContainer.appendChild(todoCard);
