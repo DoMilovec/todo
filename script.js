@@ -213,9 +213,14 @@ function renderProject(project) {
         const todoInputWrapper = document.createElement('div');
         todoInputWrapper.classList.add('todoInputWrapper');
         main.appendChild(todoInputWrapper);
+        
+        const todoInputButtons = document.createElement('div');
+        todoInputButtons.classList.add('todoInputButtons');
+        
         const inputTodoTitle = document.createElement('input');
         inputTodoTitle.classList.add('inputTodoTitle');
         todoInputWrapper.appendChild(inputTodoTitle);
+        
         const inputTodoDesc = document.createElement('input');
         inputTodoDesc.classList.add('inputTodoDesc');
         inputTodoDesc.placeholder = 'Description';
@@ -224,12 +229,14 @@ function renderProject(project) {
         const inputTodoConfirm = document.createElement('button');
         inputTodoConfirm.classList.add('inputTodoConfirm');
         inputTodoConfirm.textContent = 'confirm';
-        todoInputWrapper.appendChild(inputTodoConfirm);
+        todoInputButtons.appendChild(inputTodoConfirm);
 
         const inputTodoCancel = document.createElement('button');
         inputTodoCancel.classList.add('inputTodoCancel');
         inputTodoCancel.textContent = 'cancel';
-        todoInputWrapper.appendChild(inputTodoCancel);
+        todoInputButtons.appendChild(inputTodoCancel);
+
+        todoInputWrapper.appendChild(todoInputButtons);
 
         inputTodoConfirm.addEventListener('click', (event) => {
             newTodoBtn.disabled = false;
@@ -705,7 +712,11 @@ confirmProject.addEventListener('click', (event) => {
                         renderProject(nextProject);
                     } else { // if no projects
                         currentProject = null;
-                        main.textContent = 'You have no active projects. Start by adding a new one.';
+                        main.textContent = '';
+                        const noProjectsText = document.createElement('div');
+                        noProjectsText.classList.add('noProjectsText');
+                        noProjectsText.textContent = 'You have no active projects.';
+                        main.appendChild(noProjectsText);
                     }
                 }
             }
@@ -750,7 +761,10 @@ showMarkedTodayBtn.addEventListener('click', () => {
 
     // if no todos marked for today, show a message
     if (projectsMap.size === 0) {
-        main.textContent = 'No tasks marked for today.';
+        const noTasksText = document.createElement('div');
+        noTasksText.classList.add('noTasksText');
+        noTasksText.textContent = 'No tasks marked for today.';
+        main.appendChild(noTasksText);
         return;
     }
 

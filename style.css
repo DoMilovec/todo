@@ -301,6 +301,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
+    margin-right: 1rem;
   }
   
   .inputTodoConfirm:hover,
@@ -1293,6 +1294,12 @@ button.confirmProject:disabled {
   position: absolute;
 }
 
+.noTasksText,
+.noProjectsText {
+  margin: 2rem;
+  font-size: 1.5rem;
+}
+
 
 /* MOBILE VERSION */
 @media (max-width: 768px) {
@@ -1442,9 +1449,10 @@ button.confirmProject:disabled {
 .arrow-icon {
   display: flex;
   position: absolute;
-  top: -2.5%;
+  top: 1.5%;
   left: -2%;
   animation: fadeIn 1s ease-in-out;
+  z-index: 998;
 }
 
 .sidebarToggle-line {
@@ -1517,15 +1525,105 @@ button.confirmProject:disabled {
 
 .projectCardTitle {
   font-size: 2rem;
-  max-width: 90vw;
+  max-width: 95vw;
+  margin-left: 2.5vw;
+  margin-top: 0.3rem;
 }
 
 .projectCardDesc {
   font-size: 1rem;
-  max-width: 80vw;
+  max-width: 95vw;
+  margin-left: 2.5vw;
 }
 
 .dateDivMain {
   font-size: 1.2rem;
+  margin-left: 2.5vw;
+  margin-bottom: 0;
 }
+
+.noTasksText,
+.noProjectsText {
+  margin: 2rem;
+  font-size: 1.5rem;
+}
+
+.todoInputWrapper {
+  padding: 0.5em;
+}
+
+.mainCirclesWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newTodoBtn,
+.progressWrapper {
+  scale: 0.9;
+  font-size: 1.5rem;
+  
+}
+
+.todosContainer {
+  width: 100vw;
+}
+
+.todoCard {
+  font-size: 0.9rem;
+  width: 98vw;
+  max-width: 98vw;
+  padding: 0;
+  margin-left: 1vw;
+  display: grid;
+  grid-template-areas: 
+    'todoCheckbox todoWrapper'
+    'todoButtons todoButtons';
+  grid-template-columns: 1fr 9fr;
+}
+
+.todoButtonsDiv {
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  grid-area: todoButtons;
+  justify-content: space-around;
+  /* display: none; */
+}
+
+.prioTodoBtn {
+  gap: 0.2rem;
+  margin: 0;
+}
+
+.todayTodoBtn,
+.prioTodoBtn,
+.delTodoBtn {
+
+}
+
+.todoCardTitle {
+  min-height: 1em;
+  padding: 4px 8px;
+  font-size: 1rem;
+}
+
+.todoCardDesc {
+  color: grey;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+.todoCardWrapper {
+  grid-area: todoWrapper;
+}
+
+.checkbox-wrapper-19 {
+  grid-area: todoCheckbox;
+  margin: 0;
+  padding: 0;
+  justify-self: center;
+  align-self: center;
+}
+
 }
