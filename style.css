@@ -1300,6 +1300,11 @@ button.confirmProject:disabled {
   font-size: 1.5rem;
 }
 
+.modalContent > label {
+  color: #333;
+  font-weight: bold;
+}
+
 
 /* MOBILE VERSION */
 @media (max-width: 768px) {
@@ -1731,5 +1736,14 @@ left: -4.9em;
 .userDisplayName,
 .userDisplayEmail {
   font-size: 0.35em;
+}
+
+dialog#dialog, 
+#editProjectModal {
+  top: 32%;
+}
+
+#editProjectModal {
+  top: 27%;
 }
 }
