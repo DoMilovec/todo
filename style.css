@@ -1679,4 +1679,57 @@ button.confirmProject:disabled {
   height: 8px;
 }
 
+.todayTodoCard {
+  position: relative;
+  min-height: 2rem;
+}
+
+.todayProjectName {
+  position: relative;
+}
+
+.todayProjectName > div {
+  max-width: 80vw;
+}
+
+.todayTodosSectionTitle {
+  margin-left: 0.3rem;
+}
+
+.todayProjectNameUpper{
+  margin-left: 0.3rem;
+}
+
+.openProjectBtn {
+  scale: 0.5;
+  position: absolute;
+  right: -4%;
+  bottom: -10%;
+  width: 25%;
+}
+
+.todoCheckbox {
+scale: 0.8;
+position: absolute;
+right: 3%;
+top: 0;
+}
+
+.todoCheckbox:before {
+scale: 0.8;
+left: -4.9em;
+}
+
+.todayTodoCardDesc {
+  max-width: 75vw;
+}
+
+#dropdownMenu {
+  width: 8rem;
+}
+
+.userDisplayName,
+.userDisplayEmail {
+  font-size: 0.35em;
+}
 }

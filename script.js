@@ -264,8 +264,17 @@ function renderProject(project) {
 
         // scroll vertically by offset and focus title
         inputTodoTitle.focus();
-        const offset = 400;
-        window.scrollBy(0, offset);
+
+        const confirmRect = inputTodoConfirm.getBoundingClientRect();
+        const padding = 20;
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        
+        // scroll page if new task inputs are off screen vertically
+        if (confirmRect.bottom > viewportHeight - padding || confirmRect.top < 0) {
+          const scrollY = window.scrollY + confirmRect.top - viewportHeight / 2 + confirmRect.height;
+          window.scrollTo({ top: scrollY, behavior: 'smooth' });
+        }
+
     });
 }
 
